@@ -1,14 +1,12 @@
 ﻿#region Using
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data.Linq;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
+using System.Linq.Expressions;
 using System.Web.UI.WebControls;
 using UTTT.Ejemplo.Linq.Data.Entity;
-using System.Data.Linq;
-using System.Linq.Expressions;
-using System.Collections;
 using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
 
@@ -21,6 +19,7 @@ namespace UTTT.Ejemplo.Persona
         #region Variables
 
         private SessionManager session = new SessionManager();
+        public static String ultimaExcepcion;
 
         #endregion
 
@@ -28,6 +27,30 @@ namespace UTTT.Ejemplo.Persona
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                //Recibe la pila de excepciones, como es un "acumulador" donde se agregan las mismas y se...
+                //... guardan en un string
+                AppDomain.CurrentDomain.FirstChanceException += (senderr, ee) => {
+                    System.Text.StringBuilder msg = new System.Text.StringBuilder();
+                    //Obtiene el nombre general de la excepcion
+                    msg.AppendLine(ee.Exception.GetType().FullName);
+                    //Obtiene el mensaje de la excepcion completa
+                    msg.AppendLine(ee.Exception.Message);
+                    //Obtine las razones de la excepcion
+                    System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
+                    //Se vuelve String el mensaje completo
+                    msg.AppendLine(st.ToString());
+                    //Se agrega una linea extra, importante porque no es con \n como pensaria
+                    msg.AppendLine();
+                    //Se le asigna a la variable global el valor del mensaje
+                    PersonaPrincipal.ultimaExcepcion = msg.ToString();
+                };
+            }
+            catch (Exception error)
+            {
+                throw error;
+            }
             try
             {
                 Response.Buffer = true;
@@ -171,7 +194,7 @@ namespace UTTT.Ejemplo.Persona
                     c => c.id == _idPersona);
                 dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().DeleteOnSubmit(persona);
                 dcDelete.SubmitChanges();
-                this.showMessage("El registro se agrego correctamente.");
+                this.showMessage("El registro NO se agrego correctamente.");
                 this.DataSourcePersona.RaiseViewChanged();                
             }
             catch (Exception _e)

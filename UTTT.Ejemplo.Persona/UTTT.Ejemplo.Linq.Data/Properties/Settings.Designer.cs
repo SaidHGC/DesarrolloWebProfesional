@@ -26,11 +26,11 @@ namespace UTTT.Ejemplo.Linq.Data.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-U15SU1D5;Initial Catalog=Persona;Persist Security Info=True;Us" +
-            "er ID=sa;Password=1234")]
-        public string PersonaConnectionString2 {
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PersonaBD.mssql.somee.com;Initial Catalog=PersonaBD;Persist Security " +
+            "Info=True;User ID=Saidhgc_SQLLogin_1;Password=axqtjeyk5m")]
+        public string PersonaBDConnectionString {
             get {
-                return ((string)(this["PersonaConnectionString2"]));
+                return ((string)(this["PersonaBDConnectionString"]));
             }
         }
     }
