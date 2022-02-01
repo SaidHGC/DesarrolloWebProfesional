@@ -147,8 +147,10 @@ namespace UTTT.Ejemplo.Persona
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             try
-            {              
+            {
                 this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+
+
             }
             catch (Exception _e)
             {
@@ -278,6 +280,7 @@ namespace UTTT.Ejemplo.Persona
 
             return true;
         }
+
 
         #endregion
 
