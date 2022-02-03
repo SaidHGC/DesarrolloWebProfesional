@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using UTTT.Ejemplo.Linq.Data.Entity;
 using UTTT.Ejemplo.Persona.Control;
@@ -92,6 +93,16 @@ namespace UTTT.Ejemplo.Persona
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (this.txtClaveUnica.Text.Trim().Equals("") && this.txtNombre.Text.Trim().Equals("") && this.txtAPaterno.Text.Trim().Equals("") && 
+                this.txtAMaterno.Text.Trim().Equals("") && this.txtCurp.Text.Trim().Equals("") && int.Parse(this.ddlSexo.Text).Equals(-1))
+            {
+                this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+            }
+            else
+            {
+                btnAceptar.ValidationGroup = "vgGuardar";
+                Page.Validate("vgGuardar");
+            }
             try
             {
                 if (!Page.IsValid)
@@ -133,6 +144,16 @@ namespace UTTT.Ejemplo.Persona
                     persona.strAPaterno = this.txtAPaterno.Text.Trim();
                     persona.idCatSexo = int.Parse(this.ddlSexo.Text);
                     persona.strCURP = this.txtCurp.Text.Trim();
+
+                    String mensaje = String.Empty;
+                    //Validacion de datos correctos desde código
+                    if (!this.Validacion(persona, ref mensaje))
+                    {
+                        this.lblMensaje.Text = mensaje;
+                        this.lblMensaje.Visible = true;
+                        return;
+                    }
+
                     dcGuardar.SubmitChanges();
                     this.showMessage("El registro se edito correctamente.");
                     this.Response.Redirect("~/PersonaPrincipal.aspx", false);
@@ -215,7 +236,7 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            //Validamos un número, validar que esten entre 100 y 999
+            //Validamos un número, validar que esten entre 1 y 999
             if(int.Parse(_persona.strClaveUnica) < 1 || int.Parse(_persona.strClaveUnica) > 999)
             {
                 _mensaje = "La Clave única esta fuera de rango";
@@ -229,10 +250,28 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
+            //Valida solamente que se ingresen mas de 3 caracteres en el nombre
+            if (_persona.strNombre.Length < 3)
+            {
+                _mensaje = "El nombre necesita ser de al menos 3 caracteres, favor de ingresar un nombre valido";
+                return false;
+            }
+
             //Valida solamente que se ingresen menos de 50 caracteres en el nombre
-            if(_persona.strNombre.Length > 50)
+            if (_persona.strNombre.Length > 50)
             {
                 _mensaje = "El nombre excede los 50 caracteres, favor de ingresar un nombre valido";
+                return false;
+            }
+
+            //Validamos que solo se inserten letras en nombre...
+            /*
+             * RESCATADO DE
+             * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
+             */
+            if (!Regex.IsMatch(_persona.strNombre, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
+            {
+                _mensaje = "El campo Nombre solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
@@ -243,10 +282,28 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
+            //Valida solamente que se ingresen mas de 3 caracteres en el APaterno
+            if (_persona.strAPaterno.Length < 3)
+            {
+                _mensaje = "El apellido paterno necesita ser de al menos 3 caracteres, favor de ingresar un apellido valido";
+                return false;
+            }
+
             //Valida solamente que se ingresen menos de 50 caracteres en el APaterno
             if (_persona.strAPaterno.Length > 50)
             {
                 _mensaje = "El apellido paterno excede los 50 caracteres, favor de ingresar un apellido valido";
+                return false;
+            }
+
+            //Validamos que solo se inserten letras en APaterno...
+            /*
+             * RESCATADO DE
+             * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
+             */
+            if (!Regex.IsMatch(_persona.strAPaterno, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
+            {
+                _mensaje = "El campo de APaterno solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
@@ -257,10 +314,28 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
+            //Valida solamente que se ingresen mas de 3 caracteres en el AMaterno
+            if (_persona.strAMaterno.Length < 3)
+            {
+                _mensaje = "El apellido Materno debe ser de al menos 3 caracteres, favor de ingresar un apellido valido";
+                return false;
+            }
+
             //Valida solamente que se ingresen menos de 50 caracteres en el AMaterno
             if (_persona.strAMaterno.Length > 50)
             {
                 _mensaje = "El apellido Materno excede los 50 caracteres, favor de ingresar un apellido valido";
+                return false;
+            }
+
+            //Validamos que solo se inserten letras en AMaterno...
+            /*
+             * RESCATADO DE
+             * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
+             */
+            if (!Regex.IsMatch(_persona.strAMaterno, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙv ]+$"))
+            {
+                _mensaje = "El campo AMaterno solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
