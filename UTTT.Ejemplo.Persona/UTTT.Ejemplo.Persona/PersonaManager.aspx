@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaManager" debug=false%>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -42,6 +43,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="scriptManager">
+            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+        </div>
         <!--INICIO DE TITULO PERSONA-->
         <div class="titlePersona">Persona</div>
         <!--FINAL DE TITULO PERSONA-->
@@ -60,7 +64,18 @@
                         <label class="p-2">Sexo:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
-                        <asp:DropDownList ID="ddlSexo" runat="server"></asp:DropDownList>
+
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                            <ContentTemplate>
+                            <asp:DropDownList ID="ddlSexo" runat="server"
+                                OnSelectedIndexChanged="ddlSexo_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="ddlSexo" EventName="SelectedIndexChanged" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+
                     </div>
                 </div>
 
@@ -170,6 +185,19 @@
                     </div>
                 </div>
 
+                <div class="row" id="dteNacimiento">
+                    <div class="col  d-flex justify-content-end">
+                        <label class="p-2">Fecha nacimiento:</label>
+                    </div>
+                    <div class="col d-flex justify-content-start">
+                        <asp:TextBox CssClass="form-control" ID="txtFechaNacimiento" runat="server"></asp:TextBox>
+                        <asp:ImageButton ID="imgPopup" ImageUrl="Images/calendar-icon.png" ImageAlign="Bottom"
+                            runat="server" CausesValidation="false" />
+                        <ajaxToolkit:CalendarExtender ID="CalendarExtender1" PopupButtonID="imgPopup" 
+                            runat="server" TargetControlID="txtFechaNacimiento" Format="dd/MM/yyyy" />
+                    </div>
+                </div>
+
                 <div class="row" id="messageBottom">
                     <div class="col d-flex justify-content-start">
                         <asp:Label ID="lblMensaje" runat="server" ForeColor="#660066" Text="Label" Visible="False"></asp:Label>
@@ -220,8 +248,14 @@
     #txtNombre,
     #txtAPaterno,
     #txtAMaterno,
-    #txtCurp{
+    #txtCurp,
+    #txtFechaNacimiento{
         width:248px;
+    }
+
+    #imgPopup{
+        width: 25px;
+        height: 25px;
     }
 
     #ddlSexo{

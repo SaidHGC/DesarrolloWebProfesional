@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaPrincipal"  debug=false%>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
@@ -9,6 +10,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div class="scriptManager">
+            <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
+        </div>
             <!--INICIO DE TITULO PERSONA-->
             <div class="titlePersona">Persona</div>
             <!--FINAL DE TITULO PERSONA-->
@@ -19,7 +23,11 @@
                     <p class="d-flex">
                         <label class="p-2">Nombre:</label>
                         <asp:TextBox class="form-control" ID="txtNombre" runat="server" 
-                            ViewStateMode="Disabled"></asp:TextBox>
+                            ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
+
+                        <ajaxToolkit:AutoCompleteExtender ID="AutomCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
+                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombre">
+                        </ajaxToolkit:AutoCompleteExtender>
                     </p>
                 </div>
 
