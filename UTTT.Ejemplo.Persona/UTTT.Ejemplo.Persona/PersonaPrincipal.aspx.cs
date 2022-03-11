@@ -119,10 +119,10 @@ namespace UTTT.Ejemplo.Persona
                     sexoBool = true;
                 }
 
-                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>> 
+                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>>
                     predicate =
                     (c =>
-                    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&             
+                    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&
                     ((nombreBool) ? (((nombreBool) ? c.strNombre.Contains(this.txtNombre.Text.Trim()) : false)) : true)
                     );
 
@@ -130,7 +130,7 @@ namespace UTTT.Ejemplo.Persona
 
                 List<UTTT.Ejemplo.Linq.Data.Entity.Persona> listaPersona =
                     dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().Where(predicate).ToList();
-                e.Result = listaPersona;        
+                e.Result = listaPersona;
             }
             catch (Exception _e)
             {
@@ -195,7 +195,7 @@ namespace UTTT.Ejemplo.Persona
                 dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().DeleteOnSubmit(persona);
                 dcDelete.SubmitChanges();
                 this.showMessage("El registro NO se agrego correctamente.");
-                this.DataSourcePersona.RaiseViewChanged();                
+                this.DataSourcePersona.RaiseViewChanged();
             }
             catch (Exception _e)
             {
