@@ -111,6 +111,13 @@
     </asp:LinqDataSource>
     <script src="Scripts/bootstrap.min.js"></script>
 
+            <div class="row">
+                <div class="col d-flex justify-content-start">
+                    <asp:Button ID="btnRegresar" runat="server" Text="Menú" 
+                        onclick="btnMenu_Click" ViewStateMode="Disabled"/>
+                </div>
+            </div>
+
         </form>
     </div>
     
@@ -120,6 +127,7 @@
 <style>
     *{
         font-family: 'Century Gothic';
+        background-color: #eeeeee;
     }
 
     body{
@@ -128,7 +136,6 @@
     }
 
     .container{
-        /*background-color:cadetblue;*/
         padding:0px 0px;
         width:100%;
     }
@@ -177,6 +184,22 @@
         width:100px;
         margin-right:4%;
     }
+
+    #btnRegresar{
+        padding: 1%;
+        font-size:20px;
+        width: 150px;
+        background-color: #546E7A;
+        color: lightgray;
+        border-radius: 6px;
+        border: none;
+    }
+
+    #btnRegresar:hover{
+        background-color:#2E7D32;
+        font-weight:600;
+    }
+
 /*
     #tablaGde, #tablaCh{
         margin-left:2%;

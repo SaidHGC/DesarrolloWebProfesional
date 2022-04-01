@@ -62,6 +62,17 @@ namespace UTTT.Ejemplo.Persona
                 this.showMessage("Ha ocurrido un problema al agregar");
             }
         }
+        protected void btnMenu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Response.Redirect("~/Menu.aspx", false);
+            }
+            catch (Exception _e)
+            {
+                this.showMessage("Ha ocurrido un error inesperado");
+            }
+        }
 
         protected void DataSourceAseguradoras_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
