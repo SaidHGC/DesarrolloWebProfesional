@@ -27,43 +27,43 @@ namespace UTTT.Ejemplo.Persona
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                //Recibe la pila de excepciones, como es un "acumulador" donde se agregan las mismas y se...
-                //... guardan en un string
-                AppDomain.CurrentDomain.FirstChanceException += (senderr, ee) => {
-                    System.Text.StringBuilder msg = new System.Text.StringBuilder();
-                    //Obtiene el nombre general de la excepcion
-                    msg.AppendLine(ee.Exception.GetType().FullName);
-                    //Obtiene el mensaje de la excepcion completa
-                    msg.AppendLine(ee.Exception.Message);
-                    //Obtine las razones de la excepcion
-                    System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
-                    //Se vuelve String el mensaje completo
-                    msg.AppendLine(st.ToString());
-                    //Se agrega una linea extra, importante porque no es con \n como pensaria
-                    msg.AppendLine();
-                    //Se le asigna a la variable global el valor del mensaje
-                    PersonaPrincipal.ultimaExcepcion = msg.ToString();
-                };
-            }
-            catch (Exception error)
-            {
-                throw error;
-            }
+            //try
+            //{
+            //    //Recibe la pila de excepciones, como es un "acumulador" donde se agregan las mismas y se...
+            //    //... guardan en un string
+            //    AppDomain.CurrentDomain.FirstChanceException += (senderr, ee) => {
+            //        System.Text.StringBuilder msg = new System.Text.StringBuilder();
+            //        //Obtiene el nombre general de la excepcion
+            //        msg.AppendLine(ee.Exception.GetType().FullName);
+            //        //Obtiene el mensaje de la excepcion completa
+            //        msg.AppendLine(ee.Exception.Message);
+            //        //Obtine las razones de la excepcion
+            //        System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
+            //        //Se vuelve String el mensaje completo
+            //        msg.AppendLine(st.ToString());
+            //        //Se agrega una linea extra, importante porque no es con \n como pensaria
+            //        msg.AppendLine();
+            //        //Se le asigna a la variable global el valor del mensaje
+            //        PersonaPrincipal.ultimaExcepcion = msg.ToString();
+            //    };
+            //}
+            //catch (Exception error)
+            //{
+            //    throw error;
+            //}
             try
             {
                 Response.Buffer = true;
-                DataContext dcTemp = new DcGeneralDataContext();
+                DataContext dcTemp = new ManoAmigaSysDataContext();
                 if (!this.IsPostBack)
                 {
-                    List<CatSexo> lista = dcTemp.GetTable<CatSexo>().ToList();
-                    CatSexo catTemp = new CatSexo();
-                    catTemp.id = -1;
+                    List<EmpSexo> lista = dcTemp.GetTable<EmpSexo>().ToList();
+                    EmpSexo catTemp = new EmpSexo();
+                    catTemp.idSexo = -1;
                     catTemp.strValor = "Todos";
                     lista.Insert(0, catTemp);
                     this.ddlSexo.DataTextField = "strValor";
-                    this.ddlSexo.DataValueField = "id";
+                    this.ddlSexo.DataValueField = "idSexo";
                     this.ddlSexo.DataSource = lista;
                     this.ddlSexo.DataBind();
                 }
@@ -92,7 +92,7 @@ namespace UTTT.Ejemplo.Persona
             {
                 this.session.Pantalla = "~/PersonaManager.aspx";
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idPersona", "0");
+                parametrosRagion.Add("idEmpleado", "0");
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.Response.Redirect(this.session.Pantalla, false);               
@@ -107,7 +107,7 @@ namespace UTTT.Ejemplo.Persona
         {
             try
             {
-                DataContext dcConsulta = new DcGeneralDataContext();
+                DataContext dcConsulta = new ManoAmigaSysDataContext();
                 bool nombreBool = false;
                 bool sexoBool = false;
                 if (!this.txtNombre.Text.Equals(String.Empty))
@@ -119,17 +119,17 @@ namespace UTTT.Ejemplo.Persona
                     sexoBool = true;
                 }
 
-                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Persona, bool>>
+                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Empleados, bool>>
                     predicate =
                     (c =>
-                    ((sexoBool) ? c.idCatSexo == int.Parse(this.ddlSexo.Text) : true) &&
+                    ((sexoBool) ? c.idSexo == int.Parse(this.ddlSexo.Text) : true) &&
                     ((nombreBool) ? (((nombreBool) ? c.strNombre.Contains(this.txtNombre.Text.Trim()) : false)) : true)
                     );
 
                 predicate.Compile();
 
-                List<UTTT.Ejemplo.Linq.Data.Entity.Persona> listaPersona =
-                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().Where(predicate).ToList();
+                List<UTTT.Ejemplo.Linq.Data.Entity.Empleados> listaPersona =
+                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().Where(predicate).ToList();
                 e.Result = listaPersona;
             }
             catch (Exception _e)
@@ -151,9 +151,6 @@ namespace UTTT.Ejemplo.Persona
                     case "Eliminar":
                         this.eliminar(idPersona);
                         break;
-                    case "Direccion":
-                        this.direccion(idPersona);
-                        break;
                 }
             }
             catch (Exception _e)
@@ -171,7 +168,7 @@ namespace UTTT.Ejemplo.Persona
             try
             {
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idPersona", _idPersona.ToString());
+                parametrosRagion.Add("idEmpleado", _idPersona.ToString());
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.session.Pantalla = String.Empty;
@@ -189,31 +186,13 @@ namespace UTTT.Ejemplo.Persona
         {
             try
             {
-                DataContext dcDelete = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Persona persona = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().First(
-                    c => c.id == _idPersona);
-                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().DeleteOnSubmit(persona);
+                DataContext dcDelete = new ManoAmigaSysDataContext();
+                UTTT.Ejemplo.Linq.Data.Entity.Empleados persona = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First(
+                    c => c.idEmpleado == _idPersona);
+                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().DeleteOnSubmit(persona);
                 dcDelete.SubmitChanges();
-                this.showMessage("El registro NO se agrego correctamente.");
+                this.showMessage("El registro se eliminó correctamente.");
                 this.DataSourcePersona.RaiseViewChanged();
-            }
-            catch (Exception _e)
-            {
-                throw _e;
-            }
-        }
-
-        private void direccion(int _idPersona)
-        {
-            try
-            {
-                Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idPersona", _idPersona.ToString());
-                this.session.Parametros = parametrosRagion;
-                this.Session["SessionManager"] = this.session;
-                this.session.Pantalla = String.Empty;
-                this.session.Pantalla = "~/DireccionManager.aspx";
-                this.Response.Redirect(this.session.Pantalla, false);
             }
             catch (Exception _e)
             {

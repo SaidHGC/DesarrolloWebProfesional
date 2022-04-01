@@ -43,8 +43,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entity\Aseguradoras.cs" />
     <Compile Include="Entity\CatSexo.cs" />
+    <Compile Include="Entity\Corridas.cs" />
     <Compile Include="Entity\Direccion.cs" />
+    <Compile Include="Entity\EmpCatCede.cs" />
+    <Compile Include="Entity\UniCatAseguradoras.cs" />
+    <Compile Include="Entity\Unidades.cs" />
+    <Compile Include="Entity\UniCatDisponibilidad.cs" />
+    <Compile Include="Entity\UniCatEdoAgencia.cs" />
+    <Compile Include="Entity\UniCatTipoUnidad.cs" />
+    <Compile Include="Entity\UsCatPuesto.cs" />
+    <Compile Include="Entity\EmpCatSexo.cs" />
+    <Compile Include="Entity\UsCatStatus.cs" />
+    <Compile Include="Entity\Empleados.cs" />
     <Compile Include="Entity\Persona.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

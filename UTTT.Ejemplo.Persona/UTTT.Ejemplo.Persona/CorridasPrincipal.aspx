@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaPrincipal"  debug=true%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CorridasPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.CorridasPrincipal" debug="true"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>Persona Principal Nuevo</title>
+    <title>Corrida Principal Nueva</title>
         <link href="Content\bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -15,30 +15,42 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
             <!--INICIO DE TITULO PERSONA-->
-            <div class="titlePersona">Empleados</div>
+            <div class="titlePersona">Corridas</div>
             <!--FINAL DE TITULO PERSONA-->
 
             <!--INICIO CAMPOS DE NOMBRE Y DROPDOWN DE SEXO ADEMAS DE LOS BOTONES-->
             <div class="row" id="filtros">
-                <div class="col-md-4" id="name">
+                <div class="col-md-4" id="puntoInicio">
                     <p class="d-flex">
-                        <label class="p-2">Nombre:</label>
-                        <asp:TextBox class="form-control" ID="txtNombre" runat="server" 
+                        <label class="p-2">Punto de Inicio:</label>
+                        <asp:TextBox class="form-control" ID="txtPuntoInicio" runat="server" 
                             ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
 
                         <ajaxToolkit:AutoCompleteExtender ID="AutomCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
-                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombre">
+                            MinimumPrefixLength="2" ServiceMethod="txtPuntoInicio_TextChanged" TargetControlID="txtPuntoInicio">
                         </ajaxToolkit:AutoCompleteExtender>
                     </p>
                 </div>
 
-                <div class="col-md-4" id="sexo">
+                <div class="col-md-4" id="puntoFinal">
                     <p class="d-flex">
-                        <label class="p-2">Sexo:</label>
-                        <asp:DropDownList id="ddlSexo" runat="server">
-                            </asp:DropDownList>
+                        <label class="p-2">Punto de Llegada:</label>
+                        <asp:TextBox class="form-control" ID="txtPuntoLlegada" runat="server" 
+                            ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
+
+                        <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
+                            MinimumPrefixLength="2" ServiceMethod="txtPuntoLlegada_TextChanged" TargetControlID="txtPuntoLlegada">
+                        </ajaxToolkit:AutoCompleteExtender>
                     </p>
                 </div>
+
+                <%--<div class="col-md-4" id="cede">
+                    <p class="d-flex">
+                        <label class="p-2">Cede:</label>
+                        <asp:DropDownList id="ddlCede" runat="server">
+                            </asp:DropDownList>
+                    </p>
+                </div>--%>
 
                 <div class="col-md-4" id="botones">
                     <p class="d-flex">
@@ -60,26 +72,22 @@
 
             <!--INICIO DE LA TABLA-->
             <div id="tablaGde" class="d-none d-md-block">
-                <asp:GridView ID="dgvPersonas" runat="server" 
+                <asp:GridView ID="dgvCorridas" runat="server" 
                 AllowPaging="True" AutoGenerateColumns="False" DataSourceID="DataSourcePersona" 
                 CellPadding="3" GridLines="Horizontal" 
-                onrowcommand="dgvPersonas_RowCommand" BackColor="White" 
+                onrowcommand="dgvCorridas_RowCommand" BackColor="White" 
                 ViewStateMode="Disabled" CssClass="table table-responsive">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
-                    <asp:BoundField DataField="strNombre" HeaderText="Nombre" ReadOnly="True" 
-                        SortExpression="strNombre"/>
-                    <asp:BoundField DataField="strApPaterno" HeaderText="ApPaterno" ReadOnly="True" 
-                        SortExpression="strApPaterno" />
-                    <asp:BoundField DataField="strApMaterno" HeaderText="ApMaterno" ReadOnly="True" 
-                        SortExpression="strApMaterno" />
-                    <asp:BoundField DataField="strEmail" HeaderText="Email" ReadOnly="True" 
-                        SortExpression="strEmail" />
-                    <asp:BoundField DataField="EmpSexo" HeaderText="Sexo" 
-                        SortExpression="EmpSexo" />
+                    <asp:BoundField DataField="strPuntoInicio" HeaderText="Punto Inicio" ReadOnly="True" 
+                        SortExpression="strPuntoInicio"/>
+                    <asp:BoundField DataField="strPuntoFinal" HeaderText="Punto Llegada" ReadOnly="True" 
+                        SortExpression="strPuntoFinal" />
+                    <asp:BoundField DataField="strTipoCorrida" HeaderText="Tipo Corrida" 
+                        SortExpression="strTipoCorrida" />
                     <asp:TemplateField HeaderText="Editar">
                         <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/editrecord_16x16.png" />
+                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idCorrida") %>' ImageUrl="~/Images/editrecord_16x16.png" />
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -87,20 +95,12 @@
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Eliminar" Visible="True">
                             <ItemTemplate>
-                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
+                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idCorrida") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
                             </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
                             </asp:TemplateField>
 
-<%--                      <asp:TemplateField HeaderText="Direccion">
-                        <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgDireccion" CommandName="Direccion" CommandArgument='<%#Bind("id") %>' ImageUrl="~/Images/editrecord_16x16.png" />
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Center" />
-                                <ItemStyle HorizontalAlign="Center" Width="50px" />
-                    
-                    </asp:TemplateField>--%>
                 </Columns>
                 <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
                 <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
@@ -119,9 +119,9 @@
 
         <asp:LinqDataSource ID="DataSourcePersona" runat="server" 
         ContextTypeName="UTTT.Ejemplo.Linq.Data.Entity.SistemaManoAmigaDataContext" 
-        onselecting="DataSourcePersona_Selecting" 
-        Select="new (strNombre, strApPaterno, strApMaterno, EmpSexo, strEmail ,idEmpleado)" 
-        TableName="Empleados" EntityTypeName="">
+        onselecting="DataSourceCorridas_Selecting" 
+        Select="new (strPuntoInicio, strPuntoFinal, strTipoCorrida ,idCorrida)" 
+        TableName="Corridas" EntityTypeName="">
     </asp:LinqDataSource>
     <script src="Scripts/bootstrap.min.js"></script>
 

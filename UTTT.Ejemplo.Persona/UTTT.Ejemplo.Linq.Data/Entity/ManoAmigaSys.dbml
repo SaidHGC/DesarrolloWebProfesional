@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ManoAmiga" Class="ManoAmigaSysDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=ManoAmiga.mssql.somee.com;Initial Catalog=ManoAmiga;Persist Security Info=True;User ID=Saidhgc_SQLLogin_1" SettingsObjectName="UTTT.Ejemplo.Linq.Data.Properties.Settings" SettingsPropertyName="ManoAmigaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Corridas" Member="Corridas">
+    <Type Name="Corridas">
+      <Column Name="idCorrida" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strPuntoInicio" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strPuntoFinal" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="idCede" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="strTipoCorrida" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="EmpCede_Corridas" Member="EmpCede" ThisKey="idCede" OtherKey="IdCede" Type="EmpCede" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmpCede" Member="EmpCede">
+    <Type Name="EmpCede">
+      <Column Name="IdCede" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="EmpCede_Corridas" Member="Corridas" ThisKey="IdCede" OtherKey="idCede" Type="Corridas" />
+      <Association Name="EmpCede_Empleados" Member="Empleados" ThisKey="IdCede" OtherKey="idCede" Type="Empleados" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Empleados" Member="Empleados">
+    <Type Name="Empleados">
+      <Column Name="idEmpleado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strNombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strApPaterno" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strApMaterno" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="strEmail" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="dteFechaIngreso" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="idCede" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idSexo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="EmpCede_Empleados" Member="EmpCede" ThisKey="idCede" OtherKey="IdCede" Type="EmpCede" IsForeignKey="true" />
+      <Association Name="EmpSexo_Empleados" Member="EmpSexo" ThisKey="idSexo" OtherKey="idSexo" Type="EmpSexo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EmpSexo" Member="EmpSexo">
+    <Type Name="EmpSexo">
+      <Column Name="idSexo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="EmpSexo_Empleados" Member="Empleados" ThisKey="idSexo" OtherKey="idSexo" Type="Empleados" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniAseguradoras" Member="UniAseguradoras">
+    <Type Name="UniAseguradoras">
+      <Column Name="idAseguradora" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UniAseguradoras_Unidades" Member="Unidades" ThisKey="idAseguradora" OtherKey="idAseguradora" Type="Unidades" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Unidades" Member="Unidades">
+    <Type Name="Unidades">
+      <Column Name="idUnidad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strPlacas" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="intModelo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="strMarca" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="idTipoUnidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEdoAgencia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idAseguradora" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idDisponibilidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="UniAseguradoras_Unidades" Member="UniAseguradoras" ThisKey="idAseguradora" OtherKey="idAseguradora" Type="UniAseguradoras" IsForeignKey="true" />
+      <Association Name="UniDisponibilidad_Unidades" Member="UniDisponibilidad" ThisKey="idDisponibilidad" OtherKey="idDisponibilidad" Type="UniDisponibilidad" IsForeignKey="true" />
+      <Association Name="UniEdoAgencia_Unidades" Member="UniEdoAgencia" ThisKey="idEdoAgencia" OtherKey="idEdoAgencia" Type="UniEdoAgencia" IsForeignKey="true" />
+      <Association Name="UniTipoUnidad_Unidades" Member="UniTipoUnidad" ThisKey="idTipoUnidad" OtherKey="idTipoUnidad" Type="UniTipoUnidad" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniDisponibilidad" Member="UniDisponibilidad">
+    <Type Name="UniDisponibilidad">
+      <Column Name="idDisponibilidad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UniDisponibilidad_Unidades" Member="Unidades" ThisKey="idDisponibilidad" OtherKey="idDisponibilidad" Type="Unidades" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniEdoAgencia" Member="UniEdoAgencia">
+    <Type Name="UniEdoAgencia">
+      <Column Name="idEdoAgencia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UniEdoAgencia_Unidades" Member="Unidades" ThisKey="idEdoAgencia" OtherKey="idEdoAgencia" Type="Unidades" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UniTipoUnidad" Member="UniTipoUnidad">
+    <Type Name="UniTipoUnidad">
+      <Column Name="idTipoUnidad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UniTipoUnidad_Unidades" Member="Unidades" ThisKey="idTipoUnidad" OtherKey="idTipoUnidad" Type="Unidades" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsPerfil" Member="UsPerfil">
+    <Type Name="UsPerfil">
+      <Column Name="idPerfil" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UsPerfil_Usuarios" Member="Usuarios" ThisKey="idPerfil" OtherKey="idPerfil" Type="Usuarios" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsStatus" Member="UsStatus">
+    <Type Name="UsStatus">
+      <Column Name="idStatus" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strValor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="strDescripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="UsStatus_Usuarios" Member="Usuarios" ThisKey="idStatus" OtherKey="idStatus" Type="Usuarios" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuarios" Member="Usuarios">
+    <Type Name="Usuarios">
+      <Column Name="idUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="strUsername" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="strPassword" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="idStatus" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idPerfil" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="UsPerfil_Usuarios" Member="UsPerfil" ThisKey="idPerfil" OtherKey="idPerfil" Type="UsPerfil" IsForeignKey="true" />
+      <Association Name="UsStatus_Usuarios" Member="UsStatus" ThisKey="idStatus" OtherKey="idStatus" Type="UsStatus" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

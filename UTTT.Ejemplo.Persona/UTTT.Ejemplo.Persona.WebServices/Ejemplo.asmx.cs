@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Services;
-using UTTT.Ejemplo.Persona.Data;
 using System.Data.Linq;
+using System.Linq;
+using System.Web.Services;
 using UTTT.Ejemplo.Linq.Data.Entity;
-using System.Linq.Expressions;
 
 namespace UTTT.Ejemplo.Persona.WebServices
 {
@@ -23,18 +20,23 @@ namespace UTTT.Ejemplo.Persona.WebServices
         #region Web Metodos Persona
 
         [WebMethod]
-        public bool insertarPersona(UTTT.Ejemplo.Persona.Data.Entity.Persona _persona)
+        public bool insertarPersona(UTTT.Ejemplo.Persona.Data.Entity.Empleados _empleado)
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
-                persona.strClaveUnica = _persona.StrClaveUnica;
-                persona.strNombre = _persona.StrNombre;
-                persona.strAMaterno = _persona.StrAMaterno;
-                persona.strAPaterno = _persona.StrAPaterno;
-                persona.idCatSexo = _persona.IdCatSexo;
-                dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().InsertOnSubmit(persona);
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                UTTT.Ejemplo.Linq.Data.Entity.Empleados empleado = new Linq.Data.Entity.Empleados();
+                empleado.strNombre = _empleado.StrNombre;
+                empleado.strApPaterno = _empleado.StrApPaterno;
+                empleado.strApMaterno = _empleado.StrApMaterno;
+                empleado.strEmail = _empleado.StrEmail;
+                empleado.dteFechaIngreso = _empleado.FechaIngreso;
+                empleado.idCede = _empleado.IdCatCede;
+                empleado.idSexo = _empleado.IdCatSexo;
+                //empleado.idStatus = _empleado.IdCatStatus;
+                //empleado.idPuesto = _empleado.IdCatPuesto;
+
+                dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().InsertOnSubmit(empleado);
                 dcTemp.SubmitChanges();
                 dcTemp.Dispose();
                 return true;
@@ -46,18 +48,23 @@ namespace UTTT.Ejemplo.Persona.WebServices
         }
 
         [WebMethod]
-        public bool editarPersona(UTTT.Ejemplo.Persona.Data.Entity.Persona _persona)
+        public bool editarPersona(UTTT.Ejemplo.Persona.Data.Entity.Empleados _empleado)
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Persona persona = 
-                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().First(c => c.id == _persona.Id);
-                persona.strClaveUnica = _persona.StrClaveUnica;
-                persona.strNombre = _persona.StrNombre;
-                persona.strAMaterno = _persona.StrAMaterno;
-                persona.strAPaterno = _persona.StrAPaterno;
-                persona.idCatSexo = _persona.IdCatSexo;
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                UTTT.Ejemplo.Linq.Data.Entity.Empleados empleado = 
+                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First(c => c.idEmpleado == _empleado.IdEmpleado);
+                empleado.strNombre = _empleado.StrNombre;
+                empleado.strApPaterno = _empleado.StrApPaterno;
+                empleado.strApMaterno = _empleado.StrApMaterno;
+                empleado.strEmail = _empleado.StrEmail;
+                empleado.dteFechaIngreso = _empleado.FechaIngreso;
+                empleado.idCede = _empleado.IdCatCede;
+                empleado.idSexo = _empleado.IdCatSexo;
+                //empleado.idStatus = _empleado.IdCatStatus;
+                //empleado.idPuesto = _empleado.IdCatPuesto;
+
                 dcTemp.SubmitChanges();
                 dcTemp.Dispose();
                 return true;
@@ -69,15 +76,14 @@ namespace UTTT.Ejemplo.Persona.WebServices
         }
 
         [WebMethod]
-        public bool eliminarPersona(UTTT.Ejemplo.Persona.Data.Entity.Persona _persona)
+        public bool eliminarPersona(UTTT.Ejemplo.Persona.Data.Entity.Empleados _empleado)
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Persona persona =
-                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().First(c => c.id == _persona.Id);
-                dcTemp.GetTable<Direccion>().DeleteAllOnSubmit(persona.Direccion);
-                dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().DeleteOnSubmit(persona);
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                UTTT.Ejemplo.Linq.Data.Entity.Empleados empleado =
+                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First(c => c.idEmpleado == _empleado.IdEmpleado);
+                dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().DeleteOnSubmit(empleado);
                 dcTemp.SubmitChanges();
                 dcTemp.Dispose();
                 return true;
@@ -89,34 +95,46 @@ namespace UTTT.Ejemplo.Persona.WebServices
         }
 
         [WebMethod]
-        public UTTT.Ejemplo.Persona.Data.Entity.Persona[] consultarGlobalPersona()
+        public UTTT.Ejemplo.Persona.Data.Entity.Empleados[] consultarGlobalPersona()
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
-                List<UTTT.Ejemplo.Linq.Data.Entity.Persona> listaPersona =
-                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().ToList();
-                UTTT.Ejemplo.Persona.Data.Entity.Persona[] tempPersona = new Data.Entity.Persona[listaPersona.Count()];
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                List<UTTT.Ejemplo.Linq.Data.Entity.Empleados> listaEmpleados =
+                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().ToList();
+                UTTT.Ejemplo.Persona.Data.Entity.Empleados[] tempEmpleado = new Data.Entity.Empleados[listaEmpleados.Count()];
                 
-                for (int i = 0; i < listaPersona.Count(); i++)
+                for (int i = 0; i < listaEmpleados.Count(); i++)
                 {
                     //asignamos el objeto persona uno por uno
-                    UTTT.Ejemplo.Persona.Data.Entity.Persona temp = new Data.Entity.Persona();
-                    temp.Id = listaPersona[i].id;
-                    temp.StrNombre = listaPersona[i].strNombre;
-                    temp.StrAPaterno = listaPersona[i].strAPaterno;
-                    temp.StrAMaterno = listaPersona[i].strAMaterno;
-                    temp.StrClaveUnica = listaPersona[i].strClaveUnica;
-                    temp.StrValorSexo = listaPersona[i].CatSexo.strValor;
+                    UTTT.Ejemplo.Persona.Data.Entity.Empleados temp = new Data.Entity.Empleados();
+                    temp.IdEmpleado = listaEmpleados[i].idEmpleado;
+                    temp.StrNombre = listaEmpleados[i].strNombre;
+                    temp.StrApPaterno = listaEmpleados[i].strApPaterno;
+                    temp.StrApMaterno = listaEmpleados[i].strApMaterno;
+                    temp.StrEmail = listaEmpleados[i].strEmail;
+                    temp.FechaIngreso = (DateTime)listaEmpleados[i].dteFechaIngreso;
+                    temp.StrValorCede = listaEmpleados[i].EmpCede.strValor;
+                    temp.StrValorSexo = listaEmpleados[i].EmpSexo.strValor;
+                    //temp.StrValorStatus = listaEmpleados[i].EmpCatStatus.strValor;
+                    //temp.StrValorPuesto = listaEmpleados[i].EmpCatPuesto.strValor;
+
+                    //asignamos el objeto catCede adjunto al de persona
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede catCedeTemp = new Data.Entity.EmpCatCede();
+                    catCedeTemp.Id = listaEmpleados[i].EmpCede.IdCede;
+                    catCedeTemp.StrValor = listaEmpleados[i].EmpCede.strValor;
+                    temp.CatCedeTemp = catCedeTemp;
+
                     //asignamos el objeto catsexo adjunto al de persona
-                    UTTT.Ejemplo.Persona.Data.Entity.CatSexo catSexoTemp = new Data.Entity.CatSexo();
-                    catSexoTemp.Id = listaPersona[i].CatSexo.id;
-                    catSexoTemp.StrValor = listaPersona[i].CatSexo.strValor;
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo catSexoTemp = new Data.Entity.EmpCatSexo();
+                    catSexoTemp.Id = listaEmpleados[i].EmpSexo.idSexo;
+                    catSexoTemp.StrValor = listaEmpleados[i].EmpSexo.strValor;
                     temp.CatSexoTemp = catSexoTemp;
-                    tempPersona[i] = temp;
+
+                    tempEmpleado[i] = temp;
                 }
                 dcTemp.Dispose();
-                return tempPersona;
+                return tempEmpleado;
                
             }
             catch (Exception _e)
@@ -127,26 +145,39 @@ namespace UTTT.Ejemplo.Persona.WebServices
         }
 
         [WebMethod]
-        public UTTT.Ejemplo.Persona.Data.Entity.Persona consultarUnicaPersona(UTTT.Ejemplo.Persona.Data.Entity.Persona _persona)
+        public UTTT.Ejemplo.Persona.Data.Entity.Empleados consultarUnicaPersona(UTTT.Ejemplo.Persona.Data.Entity.Empleados _empleado)
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
+                DataContext dcTemp = new ManoAmigaSysDataContext();
              
                 //objeto persona
-                UTTT.Ejemplo.Linq.Data.Entity.Persona persona =
-                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Persona>().First(c => c.id == _persona.Id);
-                UTTT.Ejemplo.Persona.Data.Entity.Persona temp = new Data.Entity.Persona();
-                temp.Id = persona.id;
-                temp.StrNombre = persona.strNombre;
-                temp.StrAPaterno = persona.strAPaterno;
-                temp.StrAMaterno = persona.strAMaterno;
-                temp.StrValorSexo = persona.CatSexo.strValor;
-                //asignamos el objeto catsexo adjunto al de persona
-                UTTT.Ejemplo.Persona.Data.Entity.CatSexo catSexoTemp = new Data.Entity.CatSexo();
-                catSexoTemp.Id = persona.CatSexo.id;
-                catSexoTemp.StrValor = persona.CatSexo.strValor;
+                UTTT.Ejemplo.Linq.Data.Entity.Empleados empleado =
+                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First(c => c.idEmpleado == _empleado.IdEmpleado);
+                UTTT.Ejemplo.Persona.Data.Entity.Empleados temp = new Data.Entity.Empleados();
+                temp.IdEmpleado = empleado.idEmpleado;
+                temp.StrNombre = empleado.strNombre;
+                temp.StrApPaterno = empleado.strApPaterno;
+                temp.StrApMaterno = empleado.strApMaterno;
+                temp.StrEmail = empleado.strEmail;
+                temp.FechaIngreso = (DateTime)empleado.dteFechaIngreso;
+                temp.StrValorCede = empleado.EmpCede.strValor;
+                temp.StrValorSexo = empleado.EmpSexo.strValor;
+                //temp.StrValorStatus = empleado.EmpCatStatus.strValor;
+                //temp.StrValorPuesto = empleado.EmpCatPuesto.strValor;
+
+                //asignamos el objeto catCede adjunto al de persona
+                UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede catCedeTemp = new Data.Entity.EmpCatCede();
+                catCedeTemp.Id = empleado.EmpCede.IdCede;
+                catCedeTemp.StrValor = empleado.EmpCede.strValor;
+                temp.CatCedeTemp = catCedeTemp;
+
+                //asignamos el objeto catSexo adjunto al de persona
+                UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo catSexoTemp = new Data.Entity.EmpCatSexo();
+                catSexoTemp.Id = empleado.EmpSexo.idSexo;
+                catSexoTemp.StrValor = empleado.EmpSexo.strValor;
                 temp.CatSexoTemp = catSexoTemp;
+
                 dcTemp.Dispose();
                 return temp;                
             }
@@ -158,144 +189,22 @@ namespace UTTT.Ejemplo.Persona.WebServices
 
         #endregion
 
-        #region Web Metodos Direccion
-
-        [WebMethod]
-        public bool insertarDireccion(UTTT.Ejemplo.Persona.Data.Entity.Direccion _direccion)
-        {
-            try
-            {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Direccion direccion = new Linq.Data.Entity.Direccion();
-                direccion.idPersona = _direccion.IdPersona;
-                direccion.strCalle = _direccion.StrCalle;
-                direccion.strColonia = _direccion.StrColonia;
-                direccion.strNumero = _direccion.StrNumero;
-                dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Direccion>().InsertOnSubmit(direccion);
-                dcTemp.SubmitChanges();
-                dcTemp.Dispose();
-                return true;
-            }
-            catch (Exception _e)
-            {
-                return false;
-            }
-        }
-
-        [WebMethod]
-        public bool editarDireccion(UTTT.Ejemplo.Persona.Data.Entity.Direccion _direccion)
-        {
-            try
-            {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Direccion direccion = dcTemp.GetTable<Direccion>().First( c=> c.id == _direccion.Id);
-               // direccion.idPersona = _direccion.IdPersona;
-                direccion.strCalle = _direccion.StrCalle;
-                direccion.strColonia = _direccion.StrColonia;
-                direccion.strNumero = _direccion.StrNumero;                
-                dcTemp.SubmitChanges();
-                dcTemp.Dispose();
-                return true;
-            }
-            catch (Exception _e)
-            {
-                return false;
-            }
-        }
-
-        [WebMethod]
-        public bool eliminarDireccion(UTTT.Ejemplo.Persona.Data.Entity.Direccion _direccion)
-        {
-            try
-            {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Direccion direccion = dcTemp.GetTable<Direccion>().First(c => c.id == _direccion.Id);
-                dcTemp.GetTable<Direccion>().DeleteOnSubmit(direccion);
-                dcTemp.SubmitChanges();
-                dcTemp.Dispose();
-                return true;
-            }
-            catch (Exception _e)
-            {
-                return false;
-            }
-        }
-
-        [WebMethod]
-        public UTTT.Ejemplo.Persona.Data.Entity.Direccion[] consultarGlobalDireccion(int  _IDpersona)
-        {
-            try
-            {
-                DataContext dcTemp = new DcGeneralDataContext();
-                
-                List<UTTT.Ejemplo.Linq.Data.Entity.Direccion> listaDireccion =
-                    dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Direccion>().Where(c => c.idPersona == _IDpersona).ToList();
-                UTTT.Ejemplo.Persona.Data.Entity.Direccion[] tempDireccion = new Data.Entity.Direccion[listaDireccion.Count()];
-
-                for (int i = 0; i < listaDireccion.Count(); i++)
-                {
-                    //asignamos el objeto persona uno por uno
-                    UTTT.Ejemplo.Persona.Data.Entity.Direccion temp = new Data.Entity.Direccion();
-                    temp.Id = listaDireccion[i].id;
-                    temp.IdPersona = listaDireccion[i].idPersona;
-                    temp.StrCalle = listaDireccion[i].strCalle;
-                    temp.StrColonia = listaDireccion[i].strColonia;
-                    temp.StrNumero = listaDireccion[i].strNumero;
-
-                    tempDireccion[i] = temp;
-                }
-                dcTemp.Dispose();
-                return tempDireccion;
-
-            }
-            catch (Exception _e)
-            {
-                return null;
-            }
-        }
-
-        [WebMethod]
-        public UTTT.Ejemplo.Persona.Data.Entity.Direccion consultarUnicaDireccion(UTTT.Ejemplo.Persona.Data.Entity.Direccion _direccion)
-        {
-            try
-            {
-                DataContext dcTemp = new DcGeneralDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Direccion direccion = dcTemp.GetTable<Direccion>().First(c => c.id == _direccion.Id);
-                UTTT.Ejemplo.Persona.Data.Entity.Direccion temp = new Data.Entity.Direccion();
-                temp.Id = direccion.id;
-                temp.IdPersona = direccion.idPersona;
-                temp.StrCalle = direccion.strCalle;
-                temp.StrColonia = direccion.strColonia;
-                temp.StrNumero = direccion.strNumero;                
-                dcTemp.Dispose();
-                return temp;               
-            }
-            catch (Exception _e)
-            {
-                
-            }
-            return null;
-
-        }
-
-        #endregion
-
         #region Catalogo Sexo
 
         [WebMethod]
-        public UTTT.Ejemplo.Persona.Data.Entity.CatSexo[] consultaGlobalSexo()
+        public UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo[] consultaGlobalSexo()
         {
             try
             {
-                DataContext dcTemp = new DcGeneralDataContext();
-                List<UTTT.Ejemplo.Linq.Data.Entity.CatSexo> listaSexo =            dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.CatSexo>().ToList();
-                UTTT.Ejemplo.Persona.Data.Entity.CatSexo[] tempSexo = new Data.Entity.CatSexo[listaSexo.Count()];
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                List<UTTT.Ejemplo.Linq.Data.Entity.EmpSexo> listaSexo = dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpSexo>().ToList();
+                UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo[] tempSexo = new Data.Entity.EmpCatSexo[listaSexo.Count()];
 
                 for (int i = 0; i < listaSexo.Count(); i++)
                 {
                     //asignamos el objeto persona uno por uno
-                    UTTT.Ejemplo.Persona.Data.Entity.CatSexo temp = new Data.Entity.CatSexo();
-                    temp.Id = listaSexo[i].id;
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo temp = new Data.Entity.EmpCatSexo();
+                    temp.Id = listaSexo[i].idSexo;
                     temp.StrValor = listaSexo[i].strValor;
                     tempSexo[i] = temp;
                 }
@@ -311,6 +220,98 @@ namespace UTTT.Ejemplo.Persona.WebServices
 
         #endregion
 
+        #region Catalogo Cede
+
+        [WebMethod]
+        public UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede[] consultaGlobalCede()
+        {
+            try
+            {
+                DataContext dcTemp = new ManoAmigaSysDataContext();
+                List<UTTT.Ejemplo.Linq.Data.Entity.EmpCede> listaCede = dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().ToList();
+                UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede[] tempCede = new Data.Entity.EmpCatCede[listaCede.Count()];
+
+                for (int i = 0; i < listaCede.Count(); i++)
+                {
+                    //asignamos el objeto persona uno por uno
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede temp = new Data.Entity.EmpCatCede();
+                    temp.Id = listaCede[i].IdCede;
+                    temp.StrValor = listaCede[i].strValor;
+                    tempCede[i] = temp;
+                }
+                dcTemp.Dispose();
+                return tempCede;
+
+            }
+            catch (Exception _e)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Catalogo Status
+
+        //[WebMethod]
+        //public UTTT.Ejemplo.Persona.Data.Entity.UsCatStatus[] consultaGlobalStatus()
+        //{
+        //    try
+        //    {
+        //        DataContext dcTemp = new SistemaManoAmigaDataContext();
+        //        List<UTTT.Ejemplo.Linq.Data.Entity.EmpCatStatus> listaStatus = dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCatStatus>().ToList();
+        //        UTTT.Ejemplo.Persona.Data.Entity.UsCatStatus[] tempStatus = new Data.Entity.UsCatStatus[listaStatus.Count()];
+
+        //        for (int i = 0; i < listaStatus.Count(); i++)
+        //        {
+        //            //asignamos el objeto persona uno por uno
+        //            UTTT.Ejemplo.Persona.Data.Entity.UsCatStatus temp = new Data.Entity.UsCatStatus();
+        //            temp.Id = listaStatus[i].idStatus;
+        //            temp.StrValor = listaStatus[i].strValor;
+        //            tempStatus[i] = temp;
+        //        }
+        //        dcTemp.Dispose();
+        //        return tempStatus;
+
+        //    }
+        //    catch (Exception _e)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        #endregion
+
+        #region Catalogo Puesto
+
+        //[WebMethod]
+        //public UTTT.Ejemplo.Persona.Data.Entity.UsCatPuesto[] consultaGlobalPuesto()
+        //{
+        //    try
+        //    {
+        //        DataContext dcTemp = new SistemaManoAmigaDataContext();
+        //        List<UTTT.Ejemplo.Linq.Data.Entity.EmpCatPuesto> listaPuesto = dcTemp.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCatPuesto>().ToList();
+        //        UTTT.Ejemplo.Persona.Data.Entity.UsCatPuesto[] tempPuesto = new Data.Entity.UsCatPuesto[listaPuesto.Count()];
+
+        //        for (int i = 0; i < listaPuesto.Count(); i++)
+        //        {
+        //            //asignamos el objeto persona uno por uno
+        //            UTTT.Ejemplo.Persona.Data.Entity.UsCatPuesto temp = new Data.Entity.UsCatPuesto();
+        //            temp.Id = listaPuesto[i].idPuesto;
+        //            temp.StrValor = listaPuesto[i].strValor;
+        //            tempPuesto[i] = temp;
+        //        }
+        //        dcTemp.Dispose();
+        //        return tempPuesto;
+
+        //    }
+        //    catch (Exception _e)
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        #endregion
 
     }
 }

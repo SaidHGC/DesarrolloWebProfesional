@@ -79,6 +79,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AseguradorasManager.aspx" />
+    <Content Include="AseguradorasPrincipal.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -96,10 +98,9 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="controlformato.css" />
+    <Content Include="CorridasManager.aspx" />
+    <Content Include="CorridasPrincipal.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="direccion.aspx" />
-    <Content Include="DireccionExtraManager.aspx" />
-    <Content Include="DireccionManager.aspx" />
     <Content Include="ErrorPage.aspx" />
     <Content Include="Images\calendar-icon.png" />
     <Content Include="Images\delrecord_16x16.png" />
@@ -134,33 +135,40 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AseguradorasManager.aspx.cs">
+      <DependentUpon>AseguradorasManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AseguradorasManager.aspx.designer.cs">
+      <DependentUpon>AseguradorasManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AseguradorasPrincipal.aspx.cs">
+      <DependentUpon>AseguradorasPrincipal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AseguradorasPrincipal.aspx.designer.cs">
+      <DependentUpon>AseguradorasPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CorridasManager.aspx.cs">
+      <DependentUpon>CorridasManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CorridasManager.aspx.designer.cs">
+      <DependentUpon>CorridasManager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CorridasPrincipal.aspx.cs">
+      <DependentUpon>CorridasPrincipal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CorridasPrincipal.aspx.designer.cs">
+      <DependentUpon>CorridasPrincipal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="direccion.aspx.cs">
-      <DependentUpon>direccion.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="direccion.aspx.designer.cs">
-      <DependentUpon>direccion.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DireccionExtraManager.aspx.cs">
-      <DependentUpon>DireccionExtraManager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DireccionExtraManager.aspx.designer.cs">
-      <DependentUpon>DireccionExtraManager.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DireccionManager.aspx.cs">
-      <DependentUpon>DireccionManager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DireccionManager.aspx.designer.cs">
-      <DependentUpon>DireccionManager.aspx</DependentUpon>
     </Compile>
     <Compile Include="EmailSender.cs" />
     <Compile Include="ErrorPage.aspx.cs">
@@ -233,6 +241,8 @@
     <Content Include="Scripts\bootstrap.esm.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Properties\PublishProfiles\FTPProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FTPProfile2.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

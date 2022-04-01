@@ -30,18 +30,18 @@ namespace UTTT.Ejemplo.Persona.Control.Ctrl
         {
             try
             {
-                UTTT.Ejemplo.Persona.Data.Entity.Persona persona = (UTTT.Ejemplo.Persona.Data.Entity.Persona)_o;
+                UTTT.Ejemplo.Persona.Data.Entity.Empleados empleado = (UTTT.Ejemplo.Persona.Data.Entity.Empleados)_o;
                 SqlConnection conn = base.sqlConnection();
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("Select * from CatSexo ", conn);
+                SqlCommand comm = new SqlCommand("Select * from EmpSexo ", conn);
                 SqlDataReader reader = comm.ExecuteReader();
 
                 List<Object> lista = new List<object>();
                 while (reader.Read())
                 {
-                    UTTT.Ejemplo.Persona.Data.Entity.CatSexo catSexo = new Data.Entity.CatSexo();
-                    catSexo.Id = int.Parse(reader["id"].ToString());
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatSexo catSexo = new Data.Entity.EmpCatSexo();
+                    catSexo.Id = int.Parse(reader["idSexo"].ToString());
                     catSexo.StrValor = reader["strValor"].ToString();
                     catSexo.StrDescripcion = reader["strDescripcion"].ToString();
 

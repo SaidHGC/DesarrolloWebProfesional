@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaManager" debug=true%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CorridasManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.CorridasManager" debug="true"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -47,7 +47,7 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
         <!--INICIO DE TITULO PERSONA-->
-        <div class="titlePersona">Empleados</div>
+        <div class="titlePersona">Corridas</div>
         <!--FINAL DE TITULO PERSONA-->
         
         <!--INICIO TITULO DE LA ACCION PEDIDA-->
@@ -60,92 +60,59 @@
             <!--INICIO CONTENIDO DE DATOS-->
             <div class="row" id="datos">
 
-                <div class="row" id="nombre">
+                <div class="row" id="puntoInicio">
                     <div class="col d-flex justify-content-end">
-                        <label class="p-2">Nombre:</label>
-                    </div>
-                    <div class="col d-flex justify-content-start">
-                        <asp:TextBox CssClass="form-control" ID="txtNombre" runat="server" ViewStateMode="Disabled"
-                                onkeypress="return validarLetras(event);">
-                        </asp:TextBox> 
-                    </div>
-                </div>
-
-                <div class="row" id="valNombre">
-                    <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvNombre" runat="server" ErrorMessage="*El campo de nombre obligatorio" ForeColor="#660066" ControlToValidate="txtNombre" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="row" id="apPaterno">
-                    <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Apellido Paterno:</label>
+                        <label class="p-2">Punto de Inicio:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
                         <asp:TextBox 
-                                CssClass="form-control"
-                                ID="txtAPaterno" runat="server" ViewStateMode="Disabled"
-                                onkeypress="return validarLetras(event);">
-                        </asp:TextBox>
-                    </div>
-                </div>
-
-                <div class="row" id="valApPaterno">
-                    <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvAPaterno" runat="server" ControlToValidate="txtAPaterno" ErrorMessage="*El apellido paterno es Obligatorio" ForeColor="#660066" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="row" id="apMaterno">
-                    <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Apellido Materno:</label>
-                    </div>
-                    <div class="col d-flex justify-content-start">
-                        <asp:TextBox CssClass="form-control" ID="txtAMaterno" runat="server"
-                                ViewStateMode="Disabled"
-                                onkeypress="return validarLetras(event);">
-                        </asp:TextBox>
-                    </div>
-                </div>
-
-                <div class="row" id="valApMaterno">
-                    <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvAMaterno" runat="server" ControlToValidate="txtAMaterno" ErrorMessage="*El apellido materno es Obligatorio" ForeColor="#660066" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="row" id="email">
-                    <div class="col d-flex justify-content-end">
-                        <label class="p-2">Email:</label>
-                    </div>
-                    <div class="col d-flex justify-content-start">
-                        <asp:TextBox CssClass="form-control" ID="txtEmail" runat="server" ViewStateMode="Disabled">
+                            CssClass="form-control" 
+                            ID="txtPuntoInicio" 
+                            runat="server" 
+                            ViewStateMode="Disabled"
+                            onkeypress="return validarLetras(event);">
                         </asp:TextBox> 
                     </div>
                 </div>
 
-                <div class="row" id="valEmail">
+                <div class="row" id="valPuntoInicio">
                     <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ErrorMessage="*El campo de email obligatorio" ForeColor="#660066" ControlToValidate="txtEmail" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator 
+                            ID="rfvPuntoInicio" 
+                            runat="server" 
+                            ErrorMessage="*El campo de punto inicial es obligatorio" 
+                            ForeColor="#660066" 
+                            ControlToValidate="txtPuntoInicio" 
+                            ValidationGroup="vgGuardar">
+                        </asp:RequiredFieldValidator>
                     </div>
                 </div>
 
-                <div class="row" id="dteNacimiento">
+                <div class="row" id="puntoLlegada">
                     <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Fecha Ingreso:</label>
+                        <label class="p-2">Punto de Llegada:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
-                        <asp:TextBox CssClass="form-control" ID="txtFechaIngreso" runat="server"></asp:TextBox>
-                        <asp:ImageButton ID="imgPopup" ImageUrl="Images/calendar-icon.png" ImageAlign="Bottom"
-                            runat="server" CausesValidation="false" />
-                        <ajaxToolkit:CalendarExtender ID="CalendarExtender1" PopupButtonID="imgPopup" 
-                            runat="server" TargetControlID="txtFechaIngreso" Format="dd/MM/yyyy" />
+                        <asp:TextBox 
+                            CssClass="form-control"
+                            ID="txtPuntoFinal" 
+                            runat="server" 
+                            ViewStateMode="Disabled"
+                            onkeypress="return validarLetras(event);">
+                        </asp:TextBox>
                     </div>
                 </div>
 
-                <div class="row" id="valFechaIngreso">
+                <div class="row" id="valPuntoFinal">
                     <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtFechaIngreso" ErrorMessage="*La fecha de ingreso es obligatoria" ForeColor="#660066" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator 
+                            ID="rfvPuntoFinal" 
+                            runat="server" 
+                            ControlToValidate="txtPuntoFinal" 
+                            ErrorMessage="*El campo de punto final es obligatorio" 
+                            ForeColor="#660066" 
+                            ValidationGroup="vgGuardar">
+                        </asp:RequiredFieldValidator>
                     </div>
                 </div>
 
@@ -155,7 +122,7 @@
                     </div>
                     <div class="col d-flex justify-content-start">
 
-                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                             <ContentTemplate>
                             <asp:DropDownList ID="ddlCede" runat="server"
                                 OnSelectedIndexChanged="ddlCede_SelectedIndexChanged">
@@ -175,29 +142,31 @@
                     </div>
                 </div>
 
-                <div class="row" id="sex">
+                <div class="row" id="tipoCorrida">
                     <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Sexo:</label>
+                        <label class="p-2">Tipo de Corrida:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
-
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
-                            <asp:DropDownList ID="ddlSexo" runat="server"
-                                OnSelectedIndexChanged="ddlSexo_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="ddlSexo" EventName="SelectedIndexChanged" />
-                            </Triggers>
-                        </asp:UpdatePanel>
-
+                        <asp:TextBox 
+                            CssClass="form-control"
+                            ID="txtTipoCorrida" 
+                            runat="server" 
+                            ViewStateMode="Disabled"
+                            onkeypress="return validarLetras(event);">
+                        </asp:TextBox>
                     </div>
                 </div>
 
-                <div class="row" id="valSex">
+                <div class="row" id="valTipoCorrida">
                     <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvSexo" runat="server" ControlToValidate="ddlSexo" ErrorMessage="*Seleccionar un Sexo" ForeColor="#660066" InitialValue="-1" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator 
+                            ID="rfvTipoCorrida" 
+                            runat="server" 
+                            ControlToValidate="txtTipoCorrida" 
+                            ErrorMessage="*El campo de tipo de corrida es obligatorio" 
+                            ForeColor="#660066" 
+                            ValidationGroup="vgGuardar">
+                        </asp:RequiredFieldValidator>
                     </div>
                 </div>
 
@@ -275,3 +244,4 @@
         margin-right:1.5%;
     }
 </style>
+

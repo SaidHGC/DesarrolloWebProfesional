@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace UTTT.Ejemplo.Persona.Data.Entity
 {
@@ -15,12 +12,6 @@ namespace UTTT.Ejemplo.Persona.Data.Entity
         private int idCatSexo;
         private CatSexo catSexoTemp;
         private String strValorSexo;
-
-        public String StrValorSexo
-        {
-            get { return strValorSexo; }
-            set { strValorSexo = value; }
-        }
         
         public int Id
         {
@@ -63,6 +54,12 @@ namespace UTTT.Ejemplo.Persona.Data.Entity
             get { return catSexoTemp; }
             set { catSexoTemp = value; }
         }
-      
+
+        public String StrValorSexo
+        {
+            get { return strValorSexo; }
+            set { strValorSexo = value; }
+        }
+
     }
 }

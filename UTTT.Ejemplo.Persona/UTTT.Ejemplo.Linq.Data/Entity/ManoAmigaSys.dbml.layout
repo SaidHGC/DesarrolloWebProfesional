@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.75, 11.625" name="ManoAmigaSys">
+  <DataContextMoniker Name="/ManoAmigaSysDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d4651e73-4388-4640-9131-ce0871d4b12c" absoluteBounds="9.5, 9.625, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/Corridas" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f27e93d7-ce7a-4b47-9859-b3aa907dd8d9" absoluteBounds="9.515, 10.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="839f77de-b367-4f8a-87eb-8fba6200434c" absoluteBounds="6.75, 9.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/EmpCede" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c186bf7b-cd69-441e-98f3-dac2f98655cd" absoluteBounds="6.765, 10.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5b77d807-97ff-4380-a33e-e1e5f6201d9d" absoluteBounds="9.5, 6.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/Empleados" />
+      <nestedChildShapes>
+        <elementListCompartment Id="41ba0a0b-d918-4136-b53b-487b108c400e" absoluteBounds="9.515, 6.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="794be86b-8fd9-43bf-a8c7-28603e338fb5" absoluteBounds="6.75, 1.75, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/EmpSexo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ae784b11-846a-45bb-bd92-a637c3b1a4e3" absoluteBounds="6.765, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ddf2f159-7ec5-4ebb-9a55-5321a284eafc" absoluteBounds="0.75, 1.375, 2, 1.3862939453125003">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UniAseguradoras" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d52baab4-7bf6-4ca5-8f68-6f72eaa4e3a7" absoluteBounds="0.765, 1.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3b905086-722b-4080-8dd4-8a3771bbe426" absoluteBounds="3.5, 1, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/Unidades" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5a492514-c652-4b70-ace2-dcc52c9bcb63" absoluteBounds="3.515, 1.46, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8d2f66c-a630-4cb5-b8f9-4e1917035715" absoluteBounds="0.75, 4.25, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UniDisponibilidad" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6904448a-92f8-4b61-abbf-a885cd34b7a5" absoluteBounds="0.765, 4.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c8a99d93-2bcb-408f-9952-0f5f587c5390" absoluteBounds="0.75, 6.375, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UniEdoAgencia" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7c92211b-fdeb-4e66-aef4-abe2c6772192" absoluteBounds="0.765, 6.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="cb34cf4f-c629-4832-85d5-5b77d6c9e1f0" absoluteBounds="0.75, 8.5, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UniTipoUnidad" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9e310463-aae5-40ba-9229-cbef5fbb1940" absoluteBounds="0.765, 8.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d86d9802-c348-48d3-a9a6-d1d45cd1dafc" absoluteBounds="3.75, 5.125, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UsPerfil" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c0e3c118-2c1a-4df8-91a9-0c62c7e606d6" absoluteBounds="3.765, 5.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6729fdea-2b98-42f5-9e81-0a8f4c72a825" absoluteBounds="3.75, 8.125, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/UsStatus" />
+      <nestedChildShapes>
+        <elementListCompartment Id="67c5773b-1feb-4d19-9fd3-7bf160fc561e" absoluteBounds="3.765, 8.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4cf2f38d-fbee-48f1-a8ab-650847a10e61" absoluteBounds="6.5, 4.875, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/ManoAmigaSysDataContext/Usuarios" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d7660407-76be-4976-bfd2-6ff904223333" absoluteBounds="6.515, 5.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.75 : 10.4431469726562); (9.5 : 10.4431469726562)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/EmpCede/EmpCede_Corridas" />
+      <nodes>
+        <classShapeMoniker Id="839f77de-b367-4f8a-87eb-8fba6200434c" />
+        <classShapeMoniker Id="d4651e73-4388-4640-9131-ce0871d4b12c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.65625 : 9.75); (8.65625 : 7.71559895833333); (9.5 : 7.71559895833333)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/EmpCede/EmpCede_Empleados" />
+      <nodes>
+        <classShapeMoniker Id="839f77de-b367-4f8a-87eb-8fba6200434c" />
+        <classShapeMoniker Id="5b77d807-97ff-4380-a33e-e1e5f6201d9d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.703125 : 3.1362939453125); (8.703125 : 7.18074538411458); (9.5 : 7.18074538411458)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/EmpSexo/EmpSexo_Empleados" />
+      <nodes>
+        <classShapeMoniker Id="794be86b-8fd9-43bf-a8c7-28603e338fb5" />
+        <classShapeMoniker Id="5b77d807-97ff-4380-a33e-e1e5f6201d9d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.06814697265625); (3.5 : 2.06814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UniAseguradoras/UniAseguradoras_Unidades" />
+      <nodes>
+        <classShapeMoniker Id="ddf2f159-7ec5-4ebb-9a55-5321a284eafc" />
+        <classShapeMoniker Id="3b905086-722b-4080-8dd4-8a3771bbe426" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.65625); (3.59375 : 4.65625); (3.59375 : 3.34780110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UniDisponibilidad/UniDisponibilidad_Unidades" />
+      <nodes>
+        <classShapeMoniker Id="a8d2f66c-a630-4cb5-b8f9-4e1917035715" />
+        <classShapeMoniker Id="3b905086-722b-4080-8dd4-8a3771bbe426" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 7.1675439453125); (3.5624975 : 7.1675439453125); (3.5624975 : 3.34780110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UniEdoAgencia/UniEdoAgencia_Unidades" />
+      <nodes>
+        <classShapeMoniker Id="c8a99d93-2bcb-408f-9952-0f5f587c5390" />
+        <classShapeMoniker Id="3b905086-722b-4080-8dd4-8a3771bbe426" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.7300439453125); (3.6250025 : 9.7300439453125); (3.6250025 : 3.34780110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UniTipoUnidad/UniTipoUnidad_Unidades" />
+      <nodes>
+        <classShapeMoniker Id="cb34cf4f-c629-4832-85d5-5b77d6c9e1f0" />
+        <classShapeMoniker Id="3b905086-722b-4080-8dd4-8a3771bbe426" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 5.81814697265625); (6.5 : 5.81814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UsPerfil/UsPerfil_Usuarios" />
+      <nodes>
+        <classShapeMoniker Id="d86d9802-c348-48d3-a9a6-d1d45cd1dafc" />
+        <classShapeMoniker Id="4cf2f38d-fbee-48f1-a8ab-650847a10e61" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.75 : 8.81814697265625); (7.5 : 8.81814697265625); (7.5 : 6.64589680989583)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ManoAmigaSysDataContext/UsStatus/UsStatus_Usuarios" />
+      <nodes>
+        <classShapeMoniker Id="6729fdea-2b98-42f5-9e81-0a8f4c72a825" />
+        <classShapeMoniker Id="4cf2f38d-fbee-48f1-a8ab-650847a10e61" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaPrincipal"  debug=true%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AseguradorasPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.AseguradorasPrincipal" debug="true"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>Persona Principal Nuevo</title>
+    <title>Aseguradoras Principal Nuevo</title>
         <link href="Content\bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -15,28 +15,20 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
             <!--INICIO DE TITULO PERSONA-->
-            <div class="titlePersona">Empleados</div>
+            <div class="titlePersona">Aseguradoras</div>
             <!--FINAL DE TITULO PERSONA-->
 
             <!--INICIO CAMPOS DE NOMBRE Y DROPDOWN DE SEXO ADEMAS DE LOS BOTONES-->
             <div class="row" id="filtros">
-                <div class="col-md-4" id="name">
+                <div class="col-md-4" id="valor">
                     <p class="d-flex">
-                        <label class="p-2">Nombre:</label>
-                        <asp:TextBox class="form-control" ID="txtNombre" runat="server" 
+                        <label class="p-2">Nombre Aseguradora:</label>
+                        <asp:TextBox class="form-control" ID="txtNombreAseguradora" runat="server" 
                             ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
 
                         <ajaxToolkit:AutoCompleteExtender ID="AutomCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
-                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombre">
+                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombreAseguradora">
                         </ajaxToolkit:AutoCompleteExtender>
-                    </p>
-                </div>
-
-                <div class="col-md-4" id="sexo">
-                    <p class="d-flex">
-                        <label class="p-2">Sexo:</label>
-                        <asp:DropDownList id="ddlSexo" runat="server">
-                            </asp:DropDownList>
                     </p>
                 </div>
 
@@ -60,26 +52,20 @@
 
             <!--INICIO DE LA TABLA-->
             <div id="tablaGde" class="d-none d-md-block">
-                <asp:GridView ID="dgvPersonas" runat="server" 
+                <asp:GridView ID="dgvAseguradoras" runat="server" 
                 AllowPaging="True" AutoGenerateColumns="False" DataSourceID="DataSourcePersona" 
                 CellPadding="3" GridLines="Horizontal" 
-                onrowcommand="dgvPersonas_RowCommand" BackColor="White" 
+                onrowcommand="dgvAseguradoras_RowCommand" BackColor="White" 
                 ViewStateMode="Disabled" CssClass="table table-responsive">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
-                    <asp:BoundField DataField="strNombre" HeaderText="Nombre" ReadOnly="True" 
-                        SortExpression="strNombre"/>
-                    <asp:BoundField DataField="strApPaterno" HeaderText="ApPaterno" ReadOnly="True" 
-                        SortExpression="strApPaterno" />
-                    <asp:BoundField DataField="strApMaterno" HeaderText="ApMaterno" ReadOnly="True" 
-                        SortExpression="strApMaterno" />
-                    <asp:BoundField DataField="strEmail" HeaderText="Email" ReadOnly="True" 
-                        SortExpression="strEmail" />
-                    <asp:BoundField DataField="EmpSexo" HeaderText="Sexo" 
-                        SortExpression="EmpSexo" />
+                    <asp:BoundField DataField="strValor" HeaderText="Nombre Aseguradora" ReadOnly="True" 
+                        SortExpression="strValor"/>
+                    <asp:BoundField DataField="strDescripcion" HeaderText="Descripción" ReadOnly="True" 
+                        SortExpression="strDescripcion" />
                     <asp:TemplateField HeaderText="Editar">
                         <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/editrecord_16x16.png" />
+                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idAseguradora") %>' ImageUrl="~/Images/editrecord_16x16.png" />
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -87,7 +73,7 @@
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Eliminar" Visible="True">
                             <ItemTemplate>
-                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
+                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idAseguradora") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
                             </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -119,8 +105,8 @@
 
         <asp:LinqDataSource ID="DataSourcePersona" runat="server" 
         ContextTypeName="UTTT.Ejemplo.Linq.Data.Entity.SistemaManoAmigaDataContext" 
-        onselecting="DataSourcePersona_Selecting" 
-        Select="new (strNombre, strApPaterno, strApMaterno, EmpSexo, strEmail ,idEmpleado)" 
+        onselecting="DataSourceAseguradoras_Selecting" 
+        Select="new (strValor, strDescripcion ,idAseguradora)" 
         TableName="Empleados" EntityTypeName="">
     </asp:LinqDataSource>
     <script src="Scripts/bootstrap.min.js"></script>
