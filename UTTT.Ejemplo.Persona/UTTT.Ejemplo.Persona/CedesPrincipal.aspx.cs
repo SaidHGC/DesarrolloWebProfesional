@@ -11,7 +11,7 @@ using UTTT.Ejemplo.Persona.Control.Ctrl;
 
 namespace UTTT.Ejemplo.Persona
 {
-    public partial class CorridasPrincipal : System.Web.UI.Page
+    public partial class CedesPrincipal : System.Web.UI.Page
     {
         #region Variables
 
@@ -20,7 +20,6 @@ namespace UTTT.Ejemplo.Persona
 
         #endregion
 
-        #region Eventos
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -51,9 +50,9 @@ namespace UTTT.Ejemplo.Persona
         {
             try
             {
-                this.session.Pantalla = "~/CorridasManager.aspx";
+                this.session.Pantalla = "~/CedesManager.aspx";
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idCorrida", "0");
+                parametrosRagion.Add("IdCede", "0");
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.Response.Redirect(this.session.Pantalla, false);
@@ -63,7 +62,6 @@ namespace UTTT.Ejemplo.Persona
                 this.showMessage("Ha ocurrido un problema al agregar");
             }
         }
-
         protected void btnMenu_Click(object sender, EventArgs e)
         {
             try
@@ -76,36 +74,29 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void DataSourceCorridas_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        protected void DataSourceCede_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             try
             {
                 DataContext dcConsulta = new ManoAmigaSysDataContext();
-                bool valorPInicioBool = false;
-                bool valorPFinalBool = false;
+                bool cedeBool = false;
 
-                if (!this.txtPuntoInicio.Text.Equals(String.Empty))
+                if (!this.txtCede.Text.Equals(String.Empty))
                 {
-                    valorPInicioBool = true;
+                    cedeBool = true;
                 }
 
-                if (!this.txtPuntoLlegada.Text.Equals(String.Empty))
-                {
-                    valorPFinalBool = true;
-                }
-
-                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Corridas, bool>>
+                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.EmpCede, bool>>
                     predicate =
                     (c =>
-                    ((valorPInicioBool) ? (((valorPInicioBool) ? c.strPuntoInicio.Contains(this.txtPuntoInicio.Text.Trim()) : false)) : true) &&
-                    ((valorPFinalBool) ? (((valorPFinalBool) ? c.strPuntoFinal.Contains(this.txtPuntoLlegada.Text.Trim()) : false)) : true)
+                    ((cedeBool) ? (((cedeBool) ? c.strValor.Contains(this.txtCede.Text.Trim()) : false)) : true)
                     );
 
                 predicate.Compile();
 
-                List<UTTT.Ejemplo.Linq.Data.Entity.Corridas> listaCorridas =
-                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().Where(predicate).ToList();
-                e.Result = listaCorridas;
+                List<UTTT.Ejemplo.Linq.Data.Entity.EmpCede> listaCedes =
+                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().Where(predicate).ToList();
+                e.Result = listaCedes;
             }
             catch (Exception _e)
             {
@@ -113,18 +104,18 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void dgvCorridas_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void dgvCede_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                int idCorrida = int.Parse(e.CommandArgument.ToString());
+                int idCede = int.Parse(e.CommandArgument.ToString());
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        this.editar(idCorrida);
+                        this.editar(idCede);
                         break;
                     case "Eliminar":
-                        this.eliminar(idCorrida);
+                        this.eliminar(idCede);
                         break;
                 }
             }
@@ -134,20 +125,18 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        #endregion
-
         #region Metodos
 
-        private void editar(int _idCorrida)
+        private void editar(int _idCede)
         {
             try
             {
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idCorrida", _idCorrida.ToString());
+                parametrosRagion.Add("IdCede", _idCede.ToString());
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.session.Pantalla = String.Empty;
-                this.session.Pantalla = "~/CorridasManager.aspx";
+                this.session.Pantalla = "~/CedesManager.aspx";
                 this.Response.Redirect(this.session.Pantalla, false);
 
             }
@@ -157,14 +146,14 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        private void eliminar(int _idCorrida)
+        private void eliminar(int _idCede)
         {
             try
             {
                 DataContext dcDelete = new ManoAmigaSysDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Corridas corrida = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().First(
-                    c => c.idCorrida == _idCorrida);
-                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().DeleteOnSubmit(corrida);
+                UTTT.Ejemplo.Linq.Data.Entity.EmpCede cede = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().First(
+                    c => c.IdCede == _idCede);
+                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().DeleteOnSubmit(cede);
                 dcDelete.SubmitChanges();
                 this.showMessage("El registro se eliminó correctamente.");
                 this.DataSourcePersona.RaiseViewChanged();
@@ -175,7 +164,7 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void onTxtNombreTextChanged(object sender, EventArgs e)
+        protected void onTxtCedeTextChanged(object sender, EventArgs e)
         {
             try
             {
@@ -191,7 +180,6 @@ namespace UTTT.Ejemplo.Persona
         {
             this.DataSourcePersona.RaiseViewChanged();
         }
-
         #endregion
     }
 }

@@ -5,38 +5,38 @@ using UTTT.Ejemplo.Persona.Control.Interface;
 
 namespace UTTT.Ejemplo.Persona.Control.Ctrl
 {
-    public class CtrlAseguradoras : Conexion, IOperacion
+    public class CtrlCede : Conexion, IOperacion
     {
         public bool actualizar(object _o)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public object consultarItem(object _o)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public List<object> consultarLista(object _o)
         {
             try
             {
-                UTTT.Ejemplo.Persona.Data.Entity.Unidades unidad = (UTTT.Ejemplo.Persona.Data.Entity.Unidades)_o;
+                UTTT.Ejemplo.Persona.Data.Entity.Empleados empleado = (UTTT.Ejemplo.Persona.Data.Entity.Empleados)_o;
                 SqlConnection conn = base.sqlConnection();
                 conn.Open();
 
-                SqlCommand comm = new SqlCommand("Select * from UniAseguradoras ", conn);
+                SqlCommand comm = new SqlCommand("Select * from EmpCede ", conn);
                 SqlDataReader reader = comm.ExecuteReader();
 
                 List<Object> lista = new List<object>();
                 while (reader.Read())
                 {
-                    UTTT.Ejemplo.Persona.Data.Entity.Aseguradoras catAseguradora = new Data.Entity.Aseguradoras();
-                    catAseguradora.IdAseguradora = int.Parse(reader["idAseguradora"].ToString());
-                    catAseguradora.StrValorAseguradora = reader["strValor"].ToString();
-                    catAseguradora.StrDescripcionAseguradora = reader["strDescripcion"].ToString();
+                    UTTT.Ejemplo.Persona.Data.Entity.EmpCatCede catCede = new Data.Entity.EmpCatCede();
+                    catCede.Id = int.Parse(reader["idCede"].ToString());
+                    catCede.StrValor = reader["strValor"].ToString();
+                    catCede.StrDescripcion = reader["strDescripcion"].ToString();
 
-                    Object objeto = catAseguradora;
+                    Object objeto = catCede;
                     lista.Add(objeto);
 
 
@@ -53,12 +53,12 @@ namespace UTTT.Ejemplo.Persona.Control.Ctrl
 
         public bool eliminar(object _o)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool insertar(object _o)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

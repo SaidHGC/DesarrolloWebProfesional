@@ -18,7 +18,7 @@ namespace UTTT.Ejemplo.Persona.Data.Entity
         private UniCatEdoAgencia catEdoAgenciaTemp;
         private string strValorEdoAgencia;
         private int idAseguradora;
-        private UniCatAseguradoras catAseguradoraTemp;
+        private Aseguradoras catAseguradoraTemp;
         private string strValorAseguradora;
         private int idDisponibilidad;
         private UniCatDisponibilidad catDisponibilidadTemp;
@@ -90,7 +90,7 @@ namespace UTTT.Ejemplo.Persona.Data.Entity
             set { idAseguradora = value; }
         }
 
-        public UniCatAseguradoras CatAseguradoraTemp
+        public Aseguradoras CatAseguradoraTemp
         {
             get { return catAseguradoraTemp; }
             set { catAseguradoraTemp = value; }

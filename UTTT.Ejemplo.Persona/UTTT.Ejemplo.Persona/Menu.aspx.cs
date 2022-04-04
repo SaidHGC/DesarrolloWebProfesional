@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
 
 namespace UTTT.Ejemplo.Persona
@@ -27,11 +22,11 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void btnAseguradoras_Click(object sender, EventArgs e)
+        protected void btnCedes_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Response.Redirect("~/AseguradorasPrincipal.aspx", false);
+                this.Response.Redirect("~/CedesPrincipal.aspx", false);
             }
             catch (Exception _e)
             {

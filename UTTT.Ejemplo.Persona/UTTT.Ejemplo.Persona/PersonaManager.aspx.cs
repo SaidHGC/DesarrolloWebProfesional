@@ -511,6 +511,12 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
+            //Valida que sea tipo email el email
+            if(!Regex.IsMatch(_empleado.strEmail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            {
+                _mensaje = "El campo email no es del tipo indicado, favor de insertar caracteres validos";
+                return false;
+            }
 
             return true;
         }

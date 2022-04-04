@@ -33,13 +33,13 @@ namespace UTTT.Ejemplo.Persona
         protected global::System.Web.UI.WebControls.Button btnEmpleados;
 
         /// <summary>
-        /// Control btnAseguradoras.
+        /// Control btnCedes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAseguradoras;
+        protected global::System.Web.UI.WebControls.Button btnCedes;
 
         /// <summary>
         /// Control btnCorridas.

@@ -16,26 +16,31 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 <div class="col" id="titleEmpresa">
-                    <label>Servicios Unidos Urbanos y Suburbanos Mano Amiga</label>
+                    <label id="title">Servicios Unidos Urbanos y Suburbanos Mano Amiga</label>
                 </div>
             </div>
+        <div class="container">
             <div class="row">
                 <div class="col d-flex justify-content-center">
                     <img class="imgLogo" src="Images/Mano_Amiga_logo.png" />
                 </div>
             </div>
             <div class="row">
-                <div class="col d-flex justify-content-around">
+                <div id="col1" class="col-md-4 col-sm-12">
                     <asp:Button ID="btnEmpleados" runat="server" Text="Empleados" 
                         onclick="btnEmpleados_Click" ViewStateMode="Disabled"/>
-                    <asp:Button ID="btnAseguradoras" runat="server" Text="Catalogo Aseguradoras" 
-                        onclick="btnAseguradoras_Click" ViewStateMode="Disabled"/>
+                </div>
+                <div id="col2" class="col-md-4 col-sm-12">
+                    <asp:Button ID="btnCedes" runat="server" Text="Catalogo Cedes" 
+                        onclick="btnCedes_Click" ViewStateMode="Disabled"/>
+                </div>
+                <div id="col3" class="col-md-4 col-sm-12">
                     <asp:Button ID="btnCorridas" runat="server" Text="Corridas" 
                         onclick="btnCorridas_Click" ViewStateMode="Disabled"/>
                 </div>
+                
             </div>
         </div>
     </form>
@@ -52,42 +57,45 @@
         padding-top: 3%;
         padding-bottom: 3%;
         text-align:center;
-        color: black;
+        color: #939597;
         font-size: 35px;
         font-weight: bold;
     }
 
+    #titleEmpresa,
+    #title{
+        background-color: #212529;
+    }
+
     .imgLogo{
         width:35%;
-        margin-top: 1%;
-        margin-bottom: 5%;
+        margin-top: 3%;
+        margin-bottom: 4%;
+    }
+
+    #col1, #col2, #col3{
+        text-align: center;
+        padding-top: 2%;
     }
 
     #btnEmpleados,
-    #btnCorridas{
+    #btnCorridas,
+    #btnCedes{
+        height:50px;
         padding: 1%;
         font-size:20px;
         width: 200px;
-        background-color: #546E7A;
-        color: lightgray;
+        background-color: #014e35;
+        color: #D1D1D1;
         border-radius: 6px;
         border: none;
     }
 
     #btnEmpleados:hover,
     #btnCorridas:hover,
-    #btnAseguradoras:hover{
-        background-color:#2E7D32;
+    #btnCedes:hover{
+        background-color: #00724e;
         font-weight:600;
     }
 
-    #btnAseguradoras{
-        padding: 1%;
-        font-size:20px;
-        width: 350px;
-        background-color: #546E7A;
-        color: lightgray;
-        border-radius: 6px;
-        border: none;
-    }
 </style>

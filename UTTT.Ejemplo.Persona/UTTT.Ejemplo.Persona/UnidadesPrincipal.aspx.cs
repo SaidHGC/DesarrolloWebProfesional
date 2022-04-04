@@ -11,7 +11,7 @@ using UTTT.Ejemplo.Persona.Control.Ctrl;
 
 namespace UTTT.Ejemplo.Persona
 {
-    public partial class CorridasPrincipal : System.Web.UI.Page
+    public partial class UnidadesPrincipal : System.Web.UI.Page
     {
         #region Variables
 
@@ -21,13 +21,25 @@ namespace UTTT.Ejemplo.Persona
         #endregion
 
         #region Eventos
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 Response.Buffer = true;
                 DataContext dcTemp = new ManoAmigaSysDataContext();
-
+                if (!this.IsPostBack)
+                {
+                    List<UniAseguradoras> lista = dcTemp.GetTable<UniAseguradoras>().ToList();
+                    UniAseguradoras catTemp = new UniAseguradoras();
+                    catTemp.idAseguradora = -1;
+                    catTemp.strValor = "Todos";
+                    lista.Insert(0, catTemp);
+                    this.ddlAseguradora.DataTextField = "strValor";
+                    this.ddlAseguradora.DataValueField = "idAseguradora";
+                    this.ddlAseguradora.DataSource = lista;
+                    this.ddlAseguradora.DataBind();
+                }
             }
             catch (Exception _e)
             {
@@ -51,9 +63,9 @@ namespace UTTT.Ejemplo.Persona
         {
             try
             {
-                this.session.Pantalla = "~/CorridasManager.aspx";
+                this.session.Pantalla = "~/PersonaManager.aspx";
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idCorrida", "0");
+                parametrosRagion.Add("idUnidad", "0");
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.Response.Redirect(this.session.Pantalla, false);
@@ -76,36 +88,34 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void DataSourceCorridas_Selecting(object sender, LinqDataSourceSelectEventArgs e)
+        protected void DataSourceUnidades_Selecting(object sender, LinqDataSourceSelectEventArgs e)
         {
             try
             {
                 DataContext dcConsulta = new ManoAmigaSysDataContext();
-                bool valorPInicioBool = false;
-                bool valorPFinalBool = false;
-
-                if (!this.txtPuntoInicio.Text.Equals(String.Empty))
+                bool placasBool = false;
+                bool aseguradoraBool = false;
+                if (!this.txtPlacas.Text.Equals(String.Empty))
                 {
-                    valorPInicioBool = true;
+                    placasBool = true;
+                }
+                if (this.ddlAseguradora.Text != "-1")
+                {
+                    aseguradoraBool = true;
                 }
 
-                if (!this.txtPuntoLlegada.Text.Equals(String.Empty))
-                {
-                    valorPFinalBool = true;
-                }
-
-                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Corridas, bool>>
+                Expression<Func<UTTT.Ejemplo.Linq.Data.Entity.Unidades, bool>>
                     predicate =
                     (c =>
-                    ((valorPInicioBool) ? (((valorPInicioBool) ? c.strPuntoInicio.Contains(this.txtPuntoInicio.Text.Trim()) : false)) : true) &&
-                    ((valorPFinalBool) ? (((valorPFinalBool) ? c.strPuntoFinal.Contains(this.txtPuntoLlegada.Text.Trim()) : false)) : true)
+                    ((aseguradoraBool) ? c.idAseguradora == int.Parse(this.ddlAseguradora.Text) : true) &&
+                    ((placasBool) ? (((placasBool) ? c.strPlacas.Contains(this.txtPlacas.Text.Trim()) : false)) : true)
                     );
 
                 predicate.Compile();
 
-                List<UTTT.Ejemplo.Linq.Data.Entity.Corridas> listaCorridas =
-                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().Where(predicate).ToList();
-                e.Result = listaCorridas;
+                List<UTTT.Ejemplo.Linq.Data.Entity.Unidades> listaPersona =
+                    dcConsulta.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Unidades>().Where(predicate).ToList();
+                e.Result = listaPersona;
             }
             catch (Exception _e)
             {
@@ -113,18 +123,18 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void dgvCorridas_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void dgvUnidades_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
             {
-                int idCorrida = int.Parse(e.CommandArgument.ToString());
+                int idUnidad = int.Parse(e.CommandArgument.ToString());
                 switch (e.CommandName)
                 {
                     case "Editar":
-                        this.editar(idCorrida);
+                        this.editar(idUnidad);
                         break;
                     case "Eliminar":
-                        this.eliminar(idCorrida);
+                        this.eliminar(idUnidad);
                         break;
                 }
             }
@@ -138,16 +148,16 @@ namespace UTTT.Ejemplo.Persona
 
         #region Metodos
 
-        private void editar(int _idCorrida)
+        private void editar(int _idPersona)
         {
             try
             {
                 Hashtable parametrosRagion = new Hashtable();
-                parametrosRagion.Add("idCorrida", _idCorrida.ToString());
+                parametrosRagion.Add("idUnidad", _idPersona.ToString());
                 this.session.Parametros = parametrosRagion;
                 this.Session["SessionManager"] = this.session;
                 this.session.Pantalla = String.Empty;
-                this.session.Pantalla = "~/CorridasManager.aspx";
+                this.session.Pantalla = "~/PersonaManager.aspx";
                 this.Response.Redirect(this.session.Pantalla, false);
 
             }
@@ -157,14 +167,14 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        private void eliminar(int _idCorrida)
+        private void eliminar(int _idPersona)
         {
             try
             {
                 DataContext dcDelete = new ManoAmigaSysDataContext();
-                UTTT.Ejemplo.Linq.Data.Entity.Corridas corrida = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().First(
-                    c => c.idCorrida == _idCorrida);
-                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().DeleteOnSubmit(corrida);
+                UTTT.Ejemplo.Linq.Data.Entity.Unidades unidad = dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Unidades>().First(
+                    c => c.idUnidad == _idPersona);
+                dcDelete.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Unidades>().DeleteOnSubmit(unidad);
                 dcDelete.SubmitChanges();
                 this.showMessage("El registro se eliminó correctamente.");
                 this.DataSourcePersona.RaiseViewChanged();

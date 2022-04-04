@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AseguradorasPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.AseguradorasPrincipal" debug="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UnidadesPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.UnidadesPrincipal" debug="true"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>Aseguradoras Principal Nuevo</title>
+    <title>Unidades Principal Nuevo</title>
         <link href="Content\bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -15,20 +15,28 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
             <!--INICIO DE TITULO PERSONA-->
-            <div class="titlePersona">Aseguradoras</div>
+            <div class="titlePersona">Unidades</div>
             <!--FINAL DE TITULO PERSONA-->
 
             <!--INICIO CAMPOS DE NOMBRE Y DROPDOWN DE SEXO ADEMAS DE LOS BOTONES-->
             <div class="row" id="filtros">
                 <div class="col-md-4" id="valor">
                     <p class="d-flex">
-                        <label class="p-2">Nombre Aseguradora:</label>
-                        <asp:TextBox class="form-control" ID="txtNombreAseguradora" runat="server" 
+                        <label class="p-2">Numero Placas:</label>
+                        <asp:TextBox class="form-control" ID="txtPlacas" runat="server" 
                             ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
 
                         <ajaxToolkit:AutoCompleteExtender ID="AutomCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
-                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombreAseguradora">
+                            MinimumPrefixLength="2" ServiceMethod="txtPlacas_TextChanged" TargetControlID="txtPlacas">
                         </ajaxToolkit:AutoCompleteExtender>
+
+                        <div class="col-md-4" id="aseguradora">
+                    <p class="d-flex">
+                        <label class="p-2">Aseguradora:</label>
+                        <asp:DropDownList id="ddlAseguradora" runat="server">
+                            </asp:DropDownList>
+                    </p>
+                </div>
                     </p>
                 </div>
 
@@ -52,20 +60,24 @@
 
             <!--INICIO DE LA TABLA-->
             <div id="tablaGde" class="d-none d-md-block">
-                <asp:GridView ID="dgvAseguradoras" runat="server" 
+                <asp:GridView ID="dgvUnidades" runat="server" 
                 AllowPaging="True" AutoGenerateColumns="False" DataSourceID="DataSourcePersona" 
                 CellPadding="3" GridLines="Horizontal" 
-                onrowcommand="dgvAseguradoras_RowCommand" BackColor="White" 
+                onrowcommand="dgvUnidades_RowCommand" BackColor="White" 
                 ViewStateMode="Disabled" CssClass="table table-responsive">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
-                    <asp:BoundField DataField="strValor" HeaderText="Nombre Aseguradora" ReadOnly="True" 
-                        SortExpression="strValor"/>
-                    <asp:BoundField DataField="strDescripcion" HeaderText="Descripción" ReadOnly="True" 
-                        SortExpression="strDescripcion" />
+                    <asp:BoundField DataField="strPlacas" HeaderText="Numero Placas" ReadOnly="True" 
+                        SortExpression="strPlacas"/>
+                    <asp:BoundField DataField="intModelo" HeaderText="Modelo" ReadOnly="True" 
+                        SortExpression="intModelo"/>
+                    <asp:BoundField DataField="strMarca" HeaderText="Marca" ReadOnly="True" 
+                        SortExpression="strMarca" />
+                    <asp:BoundField DataField="UniAseguradoras" HeaderText="Aseguradora"
+                        SortExpression="UniAseguradoras" />
                     <asp:TemplateField HeaderText="Editar">
                         <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idAseguradora") %>' ImageUrl="~/Images/editrecord_16x16.png" />
+                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idUnidad") %>' ImageUrl="~/Images/editrecord_16x16.png" />
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -73,20 +85,12 @@
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Eliminar" Visible="True">
                             <ItemTemplate>
-                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idAseguradora") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
+                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idUnidad") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
                             </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
                             </asp:TemplateField>
 
-<%--                      <asp:TemplateField HeaderText="Direccion">
-                        <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgDireccion" CommandName="Direccion" CommandArgument='<%#Bind("id") %>' ImageUrl="~/Images/editrecord_16x16.png" />
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Center" />
-                                <ItemStyle HorizontalAlign="Center" Width="50px" />
-                    
-                    </asp:TemplateField>--%>
                 </Columns>
                 <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
                 <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#F7F7F7" />
@@ -105,9 +109,9 @@
 
         <asp:LinqDataSource ID="DataSourcePersona" runat="server" 
         ContextTypeName="UTTT.Ejemplo.Linq.Data.Entity.SistemaManoAmigaDataContext" 
-        onselecting="DataSourceAseguradoras_Selecting" 
-        Select="new (strValor, strDescripcion ,idAseguradora)" 
-        TableName="Empleados" EntityTypeName="">
+        onselecting="DataSourceUnidades_Selecting" 
+        Select="new (strPlacas, intModelo, strMarca, UniAseguradoras,idUnidad)" 
+        TableName="Unidades" EntityTypeName="">
     </asp:LinqDataSource>
     <script src="Scripts/bootstrap.min.js"></script>
 

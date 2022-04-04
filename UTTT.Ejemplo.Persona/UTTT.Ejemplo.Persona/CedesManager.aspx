@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CorridasManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.CorridasManager" debug="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CedesManager.aspx.cs" Inherits="UTTT.Ejemplo.Persona.CedesManager" debug="true"%>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -75,7 +75,7 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
         <!--INICIO DE TITULO PERSONA-->
-        <div class="titleCorrida">Corridas</div>
+        <div class="titleCedes">Cedes</div>
         <!--FINAL DE TITULO PERSONA-->
         
         <!--INICIO TITULO DE LA ACCION PEDIDA-->
@@ -88,14 +88,14 @@
             <!--INICIO CONTENIDO DE DATOS-->
             <div class="row" id="datos">
 
-                <div class="row" id="puntoInicio">
+                <div class="row" id="cede">
                     <div class="col d-flex justify-content-end">
-                        <label class="p-2">Punto de Inicio:</label>
+                        <label class="p-2">Nombre Cede:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
                         <asp:TextBox 
                             CssClass="form-control" 
-                            ID="txtPuntoInicio" 
+                            ID="txtCede" 
                             runat="server" 
                             ViewStateMode="Disabled"
                             onkeypress="return validarLetras(event);">
@@ -103,95 +103,40 @@
                     </div>
                 </div>
 
-                <div class="row" id="valPuntoInicio">
+                <div class="row" id="valAseguradora">
                     <div class="col d-flex justify-content-center">
                         <asp:RequiredFieldValidator 
-                            ID="rfvPuntoInicio" 
+                            ID="rfvAseguradora" 
                             runat="server" 
-                            ErrorMessage="*El campo de punto inicial es obligatorio" 
+                            ErrorMessage="*El campo de Cede es obligatorio" 
                             ForeColor="#660066" 
-                            ControlToValidate="txtPuntoInicio" 
+                            ControlToValidate="txtCede" 
                             ValidationGroup="vgGuardar">
                         </asp:RequiredFieldValidator>
                     </div>
                 </div>
 
-                <div class="row" id="puntoLlegada">
+                <div class="row" id="descripcion">
                     <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Punto de Llegada:</label>
+                        <label class="p-2">Descripción:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
                         <asp:TextBox 
                             CssClass="form-control"
-                            ID="txtPuntoFinal" 
+                            ID="txtDescripcion" 
                             runat="server" 
-                            ViewStateMode="Disabled"
-                            onkeypress="return validarLetras(event);">
+                            ViewStateMode="Disabled">
                         </asp:TextBox>
                     </div>
                 </div>
 
-                <div class="row" id="valPuntoFinal">
+                <div class="row" id="valDescripcion">
                     <div class="col d-flex justify-content-center">
                         <asp:RequiredFieldValidator 
-                            ID="rfvPuntoFinal" 
+                            ID="rfvDescripcion" 
                             runat="server" 
-                            ControlToValidate="txtPuntoFinal" 
-                            ErrorMessage="*El campo de punto final es obligatorio" 
-                            ForeColor="#660066" 
-                            ValidationGroup="vgGuardar">
-                        </asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="row" id="cedes">
-                    <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Cede:</label>
-                    </div>
-                    <div class="col d-flex justify-content-start">
-
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
-                            <asp:DropDownList ID="ddlCede" runat="server"
-                                OnSelectedIndexChanged="ddlCede_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="ddlCede" EventName="SelectedIndexChanged" />
-                            </Triggers>
-                        </asp:UpdatePanel>
-
-                    </div>
-                </div>
-
-                <div class="row" id="valCede">
-                    <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator ID="rfvCede" runat="server" ControlToValidate="ddlCede" ErrorMessage="*Seleccionar una Cede" ForeColor="#660066" InitialValue="-1" ValidationGroup="vgGuardar"></asp:RequiredFieldValidator>
-                    </div>
-                </div>
-
-                <div class="row" id="tipoCorrida">
-                    <div class="col  d-flex justify-content-end">
-                        <label class="p-2">Tipo de Corrida:</label>
-                    </div>
-                    <div class="col d-flex justify-content-start">
-                        <asp:TextBox 
-                            CssClass="form-control"
-                            ID="txtTipoCorrida" 
-                            runat="server" 
-                            ViewStateMode="Disabled"
-                            onkeypress="return validarLetras(event);">
-                        </asp:TextBox>
-                    </div>
-                </div>
-
-                <div class="row" id="valTipoCorrida">
-                    <div class="col d-flex justify-content-center">
-                        <asp:RequiredFieldValidator 
-                            ID="rfvTipoCorrida" 
-                            runat="server" 
-                            ControlToValidate="txtTipoCorrida" 
-                            ErrorMessage="*El campo de tipo de corrida es obligatorio" 
+                            ControlToValidate="txtDescripcion" 
+                            ErrorMessage="*La descripcion de la aseguradora es Obligatoria" 
                             ForeColor="#660066" 
                             ValidationGroup="vgGuardar">
                         </asp:RequiredFieldValidator>
@@ -224,7 +169,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
     crossorigin="anonymous"></script>
-
 </body>
 </html>
 
@@ -259,11 +203,11 @@
         background-color: rgb(108, 113, 117);
     }
 
-    .titleCorrida{
+    .titleCede{
         padding-top: 1%;
     }
 
-    .titleCorrida,
+    .titleCedes,
     .titleAccion{
         padding-bottom: 1%;
         text-align:center;
@@ -272,24 +216,14 @@
         font-weight: bold;
     }
 
-    #ddlCede,
-    #txtPuntoInicio,
-    #txtPuntoFinal,
-    #txtTipoCorrida{
+    #txtCede,
+    #txtDescripcion{
         width:248px;
     }
 
     #imgPopup{
         width: 25px;
         height: 25px;
-    }
-
-    #ddlSexo,
-    #ddlStatus,
-    #ddlCede,
-    #ddlPuesto{
-        height:40px;
-        border-radius: 6px;
     }
 
     #btnAceptar,
@@ -306,9 +240,8 @@
     #btnCancelar:hover{
         background-color: #00724e;
     }
-
+    
     #btnAceptar{
         margin-right:1.5%;
     }
 </style>
-

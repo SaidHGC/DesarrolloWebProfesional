@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PersonaPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.PersonaPrincipal"  debug=true%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CedesPrincipal.aspx.cs" Inherits="UTTT.Ejemplo.Persona.CedesPrincipal" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>Persona Principal Nuevo</title>
+    <title>Cedes Principal Nuevo</title>
         <link href="Content\bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -43,28 +43,20 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
         </div>
             <!--INICIO DE TITULO PERSONA-->
-            <div class="titlePersona">Empleados</div>
+            <div class="titlePersona">Cedes</div>
             <!--FINAL DE TITULO PERSONA-->
 
             <!--INICIO CAMPOS DE NOMBRE Y DROPDOWN DE SEXO ADEMAS DE LOS BOTONES-->
-            <div class="row" id="filtros">
-                <div class="col-md-4" id="name">
+            <div class="row d-flex justify-content-end" id="filtros">
+                <div class="col-md-4" id="valor">
                     <p class="d-flex">
-                        <label id="lblNombre" class="p-2">Nombre:</label>
-                        <asp:TextBox class="form-control" ID="txtNombre" runat="server" 
+                        <label id="lblCede" class="p-2">Cede:</label>
+                        <asp:TextBox class="form-control" ID="txtCede" runat="server" 
                             ViewStateMode="Disabled" OnTextChanged="buscarTextBox" AutoPostBack="true"></asp:TextBox>
 
                         <ajaxToolkit:AutoCompleteExtender ID="AutomCompleteExtender1" runat="server" CompletionInterval="100" EnableCaching="false"
-                            MinimumPrefixLength="2" ServiceMethod="txtNombre_TextChanged" TargetControlID="txtNombre">
+                            MinimumPrefixLength="2" ServiceMethod="txtCede_TextChanged" TargetControlID="txtCede">
                         </ajaxToolkit:AutoCompleteExtender>
-                    </p>
-                </div>
-
-                <div class="col-md-4" id="sexo">
-                    <p class="d-flex">
-                        <label id="lblSexo" class="p-2">Sexo:</label>
-                        <asp:DropDownList id="ddlSexo" runat="server">
-                            </asp:DropDownList>
                     </p>
                 </div>
 
@@ -88,26 +80,20 @@
 
             <!--INICIO DE LA TABLA-->
             <div id="tablaGde" class="table table-responsive">
-                <asp:GridView ID="dgvPersonas" runat="server" 
+                <asp:GridView ID="dgvCede" runat="server" 
                 AllowPaging="True" AutoGenerateColumns="False" DataSourceID="DataSourcePersona" 
                 CellPadding="3" GridLines="Horizontal" 
-                onrowcommand="dgvPersonas_RowCommand" BackColor="White" 
+                onrowcommand="dgvCede_RowCommand" BackColor="White" 
                 ViewStateMode="Disabled" CssClass="table table-responsive">
                 <AlternatingRowStyle BackColor="#F7F7F7" />
                 <Columns>
-                    <asp:BoundField DataField="strNombre" HeaderText="Nombre" ReadOnly="True" 
-                        SortExpression="strNombre"/>
-                    <asp:BoundField DataField="strApPaterno" HeaderText="ApPaterno" ReadOnly="True" 
-                        SortExpression="strApPaterno" />
-                    <asp:BoundField DataField="strApMaterno" HeaderText="ApMaterno" ReadOnly="True" 
-                        SortExpression="strApMaterno" />
-                    <asp:BoundField DataField="strEmail" HeaderText="Email" ReadOnly="True" 
-                        SortExpression="strEmail" />
-                    <asp:BoundField DataField="EmpSexo" HeaderText="Sexo" 
-                        SortExpression="EmpSexo" />
+                    <asp:BoundField DataField="strValor" HeaderText="Cede" ReadOnly="True" 
+                        SortExpression="strValor"/>
+                    <asp:BoundField DataField="strDescripcion" HeaderText="Descripción" ReadOnly="True" 
+                        SortExpression="strDescripcion" />
                     <asp:TemplateField HeaderText="Editar">
                         <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/editrecord_16x16.png" />
+                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idCede") %>' ImageUrl="~/Images/editrecord_16x16.png" />
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -115,20 +101,12 @@
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Eliminar" Visible="True">
                             <ItemTemplate>
-                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idEmpleado") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
+                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idCede") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
                             </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
                             </asp:TemplateField>
 
-<%--                      <asp:TemplateField HeaderText="Direccion">
-                        <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgDireccion" CommandName="Direccion" CommandArgument='<%#Bind("id") %>' ImageUrl="~/Images/editrecord_16x16.png" />
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Center" />
-                                <ItemStyle HorizontalAlign="Center" Width="50px" />
-                    
-                    </asp:TemplateField>--%>
                 </Columns>
                 <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
                 <HeaderStyle BackColor="#666666" Font-Bold="True" ForeColor="#F7F7F7" />
@@ -147,9 +125,9 @@
 
         <asp:LinqDataSource ID="DataSourcePersona" runat="server" 
         ContextTypeName="UTTT.Ejemplo.Linq.Data.Entity.SistemaManoAmigaDataContext" 
-        onselecting="DataSourcePersona_Selecting" 
-        Select="new (strNombre, strApPaterno, strApMaterno, EmpSexo, strEmail ,idEmpleado)" 
-        TableName="Empleados" EntityTypeName="">
+        onselecting="DataSourceCede_Selecting" 
+        Select="new (strValor, strDescripcion ,IdCede)" 
+        TableName="Cedes" EntityTypeName="">
     </asp:LinqDataSource>
     <script src="Scripts/bootstrap.min.js"></script>
 
@@ -226,8 +204,7 @@
         margin: 0;
     }
 
-    #lblNombre,
-    #lblSexo{
+    #lblCede{
         text-align:right;
     }
 
@@ -235,17 +212,16 @@
         width:100%;
     }
 
-    #ddlSexo{
+    #txtCede{
         Width: 100%;
-        height:40px;
         border-radius: 6px;
     }
 
-    #txtNombre, #ddlSexo{
+    #txtCede{
         margin-left:5px;
     }
 
-    #name, #sexo, #botones{
+    #valor,#botones{
         padding-top:1%;
     }
 
@@ -282,9 +258,11 @@
         background-color: #00724e;
         font-weight:600;
     }
+
 /*
     #tablaGde, #tablaCh{
         margin-left:2%;
         margin-right:2%;
     }*/
 </style>
+

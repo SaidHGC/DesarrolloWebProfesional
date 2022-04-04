@@ -42,6 +42,34 @@
     </script>
 </head>
 <body>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+    <div class="d-none d-md-block d-lg-block d-xl-block">
+      <a class="navbar-brand" href="#">
+        <img src="Images/Mano_Amiga_logo.png" alt="Logo" class="logoEmpresa" />
+      </a>
+    </div>
+    <!--Se contrae la navBar-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item" id="navegacionCedes">
+          <a class="nav-link" href="CedesPrincipal.aspx">Cedes</a>
+        </li>
+        <li class="nav-item" id="navegacionEmpleados">
+          <a class="nav-link" href="PersonaPrincipal.aspx">Empleados</a>
+        </li>
+        <li class="nav-item" id="navegacionCorridas">
+          <a class="nav-link" href="CorridasPrincipal.aspx">Corridas</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
     <form id="form1" runat="server">
         <div class="scriptManager">
             <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePageMethods="true"></asp:ScriptManager>
@@ -119,7 +147,7 @@
                         <label class="p-2">Email:</label>
                     </div>
                     <div class="col d-flex justify-content-start">
-                        <asp:TextBox CssClass="form-control" ID="txtEmail" runat="server" ViewStateMode="Disabled">
+                        <asp:TextBox CssClass="form-control" ID="txtEmail" runat="server" ViewStateMode="Disabled" ValidationGroup="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
                         </asp:TextBox> 
                     </div>
                 </div>
@@ -220,6 +248,13 @@
             <!--FINAL CONTENIDO DE DATOS-->
         </div>
     </form>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
 </body>
 </html>
 
@@ -231,6 +266,27 @@
     body{
         margin:0;
         padding:0;
+    }
+
+    .navbar{
+    height: 100px;
+    }
+
+    .logoEmpresa{
+        width:100px;
+    }
+
+    #navegacionCedes,
+    #navegacionEmpleados,
+    #navegacionCorridas{
+    border-right: 1px solid rgb(108, 113, 117);
+    background-color: #212529;
+    }
+
+    #navegacionCedes:hover,
+    #navegacionEmpleados:hover,
+    #navegacionCorridas:hover{
+        background-color: rgb(108, 113, 117);
     }
 
     .titlePersona{
@@ -269,6 +325,21 @@
     #ddlPuesto{
         height:40px;
         border-radius: 6px;
+    }
+
+    #btnAceptar,
+    #btnCancelar{
+        background-color: #014e35;
+        color: #D1D1D1;
+        border-radius: 6px;
+        padding: 1%;
+        font-size:15px;
+        width: 125px;
+    }
+
+    #btnAceptar:hover,
+    #btnCancelar:hover{
+        background-color: #00724e;
     }
 
     #btnAceptar{

@@ -51,6 +51,7 @@
     <Compile Include="Ctrl\Conexion.cs" />
     <Compile Include="Ctrl\CtrlAseguradoras.cs" />
     <Compile Include="Ctrl\CtrlCatAseguradoras.cs" />
+    <Compile Include="Ctrl\CtrlCede.cs" />
     <Compile Include="Ctrl\CtrlCorridas.cs" />
     <Compile Include="Ctrl\CtrlDisponibilidad.cs" />
     <Compile Include="Ctrl\CtrlEdoAgencia.cs" />

@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entity\CatAseguradoras.cs" />
+    <Compile Include="Entity\CatCedes.cs" />
     <Compile Include="Entity\CatSexo.cs" />
     <Compile Include="Entity\ManoAmigaSys.designer.cs">
       <AutoGen>True</AutoGen>
