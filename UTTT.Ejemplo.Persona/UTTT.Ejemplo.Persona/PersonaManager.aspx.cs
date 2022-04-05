@@ -400,21 +400,6 @@ namespace UTTT.Ejemplo.Persona
                 return false;
             }
 
-            int i = 0;
-            //Verificar si un texto es un número
-            //if (int.TryParse(_empleado.strClaveUnica, out i) == false)
-            //{
-            //    _mensaje = "La Clave Única no es un número";
-            //    return false;
-            //}
-
-            //Validamos un número, validar que esten entre 1 y 999
-            //if(int.Parse(_persona.strClaveUnica) < 1 || int.Parse(_persona.strClaveUnica) > 999)
-            //{
-            //    _mensaje = "La Clave única esta fuera de rango";
-            //    return false;
-            //}
-
             //Valida si el nommbre esta vacio
             if (_empleado.strNombre.Equals(String.Empty))
             {

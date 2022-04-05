@@ -81,6 +81,7 @@
   <ItemGroup>
     <Content Include="AseguradorasManager.aspx" />
     <Content Include="AseguradorasPrincipal.aspx" />
+    <Content Include="CambioPassManager.aspx" />
     <Content Include="CedesManager.aspx" />
     <Content Include="CedesPrincipal.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -118,6 +119,7 @@
     <Content Include="Images\trash-icon.png" />
     <Content Include="javaScripFile.js" />
     <Content Include="javaScripPage.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Menu.aspx" />
     <Content Include="PersonaManager.aspx" />
     <Content Include="PersonaPrincipal.aspx" />
@@ -131,6 +133,7 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="UnidadesPrincipal.aspx" />
+    <Content Include="UsuariosManager.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -155,6 +158,13 @@
     </Compile>
     <Compile Include="AseguradorasPrincipal.aspx.designer.cs">
       <DependentUpon>AseguradorasPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CambioPassManager.aspx.cs">
+      <DependentUpon>CambioPassManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CambioPassManager.aspx.designer.cs">
+      <DependentUpon>CambioPassManager.aspx</DependentUpon>
     </Compile>
     <Compile Include="CedesManager.aspx.cs">
       <DependentUpon>CedesManager.aspx</DependentUpon>
@@ -206,6 +216,13 @@
     <Compile Include="javaScripPage.aspx.designer.cs">
       <DependentUpon>javaScripPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Menu.aspx.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -241,6 +258,13 @@
     </Compile>
     <Compile Include="UnidadesPrincipal.aspx.designer.cs">
       <DependentUpon>UnidadesPrincipal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosManager.aspx.cs">
+      <DependentUpon>UsuariosManager.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UsuariosManager.aspx.designer.cs">
+      <DependentUpon>UsuariosManager.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <b><h2>A OCURRIDO UN ERROR</h2></b>
+        <h2><b>A OCURRIDO UN ERROR</b></h2>
         
         <div id="foolContainer">
             <img id="fool" src="Images/fool.jpg" alt="">
@@ -22,9 +22,9 @@
            
         <table id="imgs">
             <tr>
-                <td id="invisible"><img id="shinso" src="Images/Shinso.jpg" alt="Shinso"></td>
-                <td><img id="shinso" src="Images/Shinso.jpg" alt="Shinso"></td>
-                <td id="invisible"><img id="shinso" src="Images/Shinso.jpg" alt="Shinso"></td>
+                <td id="invisibleOne"><img id="shinsoOne" src="Images/Shinso.jpg" alt="Shinso"></td>
+                <td><img id="shinsoTwo" src="Images/Shinso.jpg" alt="Shinso"></td>
+                <td id="invisibleTwo"><img id="shinsoThree" src="Images/Shinso.jpg" alt="Shinso"></td>
                 <img id="mago" src="Images/Mago.jpg" alt="">
             </tr>
         </table>
@@ -56,11 +56,14 @@
         text-align: center;
     }
 
-    #invisible{
+    #invisibleOne,
+    #invisibleTwo{
         visibility: hidden;
     }
 
-    #shinso{
+    #shinsoOne,
+    #shinsoTwo,
+    #shinsoThree{
         width: 100%;
     }
 
