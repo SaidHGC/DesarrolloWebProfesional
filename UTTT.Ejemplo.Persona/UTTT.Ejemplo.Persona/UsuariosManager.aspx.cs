@@ -141,7 +141,8 @@ namespace UTTT.Ejemplo.Persona
                     if (this.idPersona == 0)
                     {
                         usuario.strUsername = this.txtUsername.Text.Trim();
-                        txtPassOne.Text = GetSha256(Guid.NewGuid().ToString());
+                        //encriptamos la cadena inicial       
+                        txtPassOne.Text = Seguridad.Encriptar(txtPassOne.Text);
                         usuario.strPassword = this.txtPassOne.Text.Trim();
                         usuario.idStatus = int.Parse(this.ddlStatus.Text);
                         usuario.idPerfil = int.Parse(this.ddlPerfil.Text);
@@ -266,21 +267,6 @@ namespace UTTT.Ejemplo.Persona
             }
             _control.Items.FindByText(_value).Selected = true;
         }
-
-        #region Cifrado
-
-        private string GetSha256(string str)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            ASCIIEncoding enconding = new ASCIIEncoding();
-            byte[] stream = null;
-            StringBuilder sb = new StringBuilder();
-            stream = sha256.ComputeHash(enconding.GetBytes(str));
-            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
-            return sb.ToString();
-        }
-
-        #endregion
 
         #region Validacion codigo
 

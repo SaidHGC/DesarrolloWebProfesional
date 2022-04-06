@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using UTTT.Ejemplo.Linq.Data.Entity;
 using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
@@ -14,6 +17,7 @@ namespace UTTT.Ejemplo.Persona
         private SessionManager session = new SessionManager();
         public static String ultimaExcepcion;
         private UTTT.Ejemplo.Linq.Data.Entity.Usuarios baseEntity;
+        private UTTT.Ejemplo.Linq.Data.Entity.Usuarios baseEntityDB;
         private DataContext dcGlobal = new ManoAmigaSysDataContext();
 
         #endregion
@@ -47,22 +51,55 @@ namespace UTTT.Ejemplo.Persona
             }
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void btnIngresar_Click(object sender, EventArgs e)
         {
-            string usuario = this.txtUsername.Text;
-            string pass = this.txtPassword.Text;
+            try
+            {
+                string usuario = this.txtUsername.Text;
 
-            using(dcGlobal = new ManoAmigaSysDataContext())
-            {
-                baseEntity = dcGlobal.GetTable<Usuarios>().FirstOrDefault(c => (c.strUsername.Equals(usuario) && (c.strPassword.Equals(pass))));
+                //encriptamos la cadena inicial       
+                //txtPassword.Text = Seguridad.Encriptar(txtPassword.Text);
+                string pass = this.txtPassword.Text;
+
+
+                if (usuario != "" && pass != "")
+                {
+                    using (dcGlobal = new ManoAmigaSysDataContext())
+                    {
+                        List<Usuarios> listaUsuarios = dcGlobal.GetTable<Usuarios>().Where(c => (c.strUsername.Equals(usuario))).ToList();
+
+                        if (listaUsuarios.Count > 0)
+                        {
+                            foreach (var user in listaUsuarios)
+                            {
+                                if (Seguridad.Encriptar(pass).Equals(user.strPassword))
+                                {
+                                    baseEntity = user;
+                                }
+                            }
+                        }
+                    }
+                    if (baseEntity != null)
+                    {
+                            //session = new SessionManager(baseEntity.idUsuario);
+                            session.Pantalla = "~/Menu.aspx";
+                            Session["SessionManager"] = this.session;
+                            Session["idUsuario"] = baseEntity.idUsuario;
+                            this.Response.Redirect(this.session.Pantalla, false);
+                    }
+                    else
+                    {
+                        this.showMessage("El usuario no existe o contraseña incorrecta");
+                    }
+                }
+                else
+                {
+                    this.showMessage("Alguno o ambos campos estan vacios");
+                }
             }
-            if (baseEntity != null)
+            catch (Exception _e)
             {
-                //session = new SessionManager(baseEntity.idUsuario);
-                session.Pantalla = "~/Menu.aspx";
-                Session["SessionManager"] = this.session;
-                Session["idUsuario"] = baseEntity.idUsuario;
-                this.Response.Redirect(this.session.Pantalla, false);
+                this.showMessage("Ha ocurrido un error inesperado");
             }
         }
     }

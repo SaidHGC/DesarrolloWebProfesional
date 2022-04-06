@@ -80,7 +80,7 @@ namespace UTTT.Ejemplo.Persona
                     {
                         this.lblAccion.Text = "Agregar";
 
-                        CalendarExtender1.SelectedDate = DateTime.Now;
+                        CalendarExtender1.SelectedDate = DateTime.MinValue;
 
                         EmpCede catTempCede = new EmpCede();
                         catTempCede.IdCede = -1;
@@ -173,7 +173,8 @@ namespace UTTT.Ejemplo.Persona
                 int.Parse(this.ddlSexo.Text).Equals(-1) &&
                 //int.Parse(this.ddlStatus.Text).Equals(-1) &&
                 //int.Parse(this.ddlPuesto.Text).Equals(-1) &&
-                this.txtFechaIngreso.Text.Trim().Equals("") &&
+                //Comento la fecha porque no me deja comparar que sea la fecha minima
+                //this.txtFechaIngreso.Text.Trim().Equals("") &&
                 this.txtEmail.Text.Trim().Equals(""))
             {
                 this.Response.Redirect("~/PersonaPrincipal.aspx", false);

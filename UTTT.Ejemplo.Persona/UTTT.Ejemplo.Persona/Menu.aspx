@@ -30,15 +30,18 @@
             <div class="row">
                 <div id="col1" class="col-md-4 col-sm-12">
                     <asp:Button ID="btnEmpleados" runat="server" Text="Empleados" 
-                        onclick="btnEmpleados_Click" ViewStateMode="Disabled"/>
+                        onclick="btnEmpleados_Click" ViewStateMode="Disabled"
+                        Enabled="false"/>
                 </div>
                 <div id="col2" class="col-md-4 col-sm-12">
                     <asp:Button ID="btnCedes" runat="server" Text="Catalogo Cedes" 
-                        onclick="btnCedes_Click" ViewStateMode="Disabled"/>
+                        onclick="btnCedes_Click" ViewStateMode="Disabled"
+                        Enabled="false"/>
                 </div>
                 <div id="col3" class="col-md-4 col-sm-12">
                     <asp:Button ID="btnCorridas" runat="server" Text="Corridas" 
-                        onclick="btnCorridas_Click" ViewStateMode="Disabled"/>
+                        onclick="btnCorridas_Click" ViewStateMode="Disabled"
+                        Enabled="false"/>
                 </div>
                 
             </div>

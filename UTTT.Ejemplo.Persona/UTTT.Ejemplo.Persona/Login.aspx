@@ -11,7 +11,7 @@
     <title>Sistema Mano Amiga</title>
 </head>
 <body>
-    <form action="Menu.aspx" class="formBox" runat="server">
+    <form class="formBox" runat="server">
         <h1 class="formTitle">SIGN IN</h1>
         <%--<input ID="" type="text" placeholder="username">--%>
         <asp:TextBox CssClass="form-control" ID="txtUsername" runat="server" ViewStateMode="Disabled"
@@ -19,11 +19,10 @@
         </asp:TextBox> 
         <%--<input ID="" type="password" placeholder="password">--%>
         <asp:TextBox CssClass="form-control" ID="txtPassword" runat="server" ViewStateMode="Disabled"
-             placeholder="password">
+             placeholder="password" TextMode="Password">
         </asp:TextBox> 
-        <button id="btnLogin" onclick="btnIngresar" type="submit">
-            Login
-        </button>
+        <asp:Button ID="btnLogin" runat="server" Text="Ingresar" 
+                        onclick="btnIngresar_Click" ViewStateMode="Disabled"/>
         <div id="forgotPass">
             <label><a href="CambioPassManager.aspx">He olvidado mi contraseña</a></label>
         </div>
@@ -69,7 +68,7 @@
 
     #txtUsername,
     #txtPassword,
-    .formBox button[type="submit"]{
+    #btnLogin{
         border: 0;
         background-color: rgba(223, 228, 235, 0.301);
         display: block;
@@ -90,14 +89,14 @@
         border-color: white;
     }
 
-    .formBox button[type="submit"]{
+    #btnLogin{
         border: 0;
         background-color: #014e35;
         color: #D1D1D1;
         cursor: pointer;
     }
 
-    .formBox button[type="submit"]:hover{
+    #btnLogin:hover{
         background-color: #00724e;
         font-weight:600;
     }
@@ -108,5 +107,14 @@
     #forgotPass,
     #newUser{
         color: #D1D1D1;
+    }
+
+    a{
+        color: #D1D1D1;
+    }
+
+    a:hover{
+        color: #D1D1D1;
+        font-weight:600;
     }
 </style>

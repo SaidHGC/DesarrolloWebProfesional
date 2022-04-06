@@ -1,13 +1,37 @@
 ﻿using System;
+using System.Data.Linq;
+using System.Linq;
+using UTTT.Ejemplo.Linq.Data.Entity;
+using UTTT.Ejemplo.Persona.Control;
 using UTTT.Ejemplo.Persona.Control.Ctrl;
 
 namespace UTTT.Ejemplo.Persona
 {
     public partial class Menu : System.Web.UI.Page
     {
+        #region Variables
+
+        private SessionManager session = new SessionManager();
+        private int idPersona = 0;
+        private UTTT.Ejemplo.Linq.Data.Entity.Usuarios baseEntity;
+        //private UTTT.Ejemplo.Linq.Data.Entity.Persona baseEntity;
+        private DataContext dcGlobal = new ManoAmigaSysDataContext();
+        //private DataContext dcGlobal = new DcGeneralDataContext();
+        private int tipoAccion = 0;
+
+        #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                this.btnEmpleados.Enabled = true;
+            }
+            catch (Exception _e)
+            {
+                this.showMessage("Ha ocurrido un problema al cargar la página");
+                this.Response.Redirect("~/Login.aspx", false);
+            }
         }
 
         protected void btnEmpleados_Click(object sender, EventArgs e)

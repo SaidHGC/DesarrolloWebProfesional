@@ -93,23 +93,32 @@ namespace UTTT.Ejemplo.Persona
                     UTTT.Ejemplo.Linq.Data.Entity.Usuarios usuario = new Linq.Data.Entity.Usuarios();
                     if (this.idPersona == 0)
                     {
-                        //usuario.strUsername = this.txtUsername.Text.Trim();
-                        txtNewPassOne.Text = GetSha256(Guid.NewGuid().ToString());
-                        usuario.strPassword = this.txtNewPassOne.Text.Trim();
-
-                        String mensaje = String.Empty;
-                        //Validacion de datos correctos desde código
-                        if (!this.Validacion(usuario, ref mensaje))
+                        usuario = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().FirstOrDefault
+                                                                        (c => c.strUsername == txtUsername.Text);
+                        if (usuario != null)
                         {
-                            this.lblMensaje.Text = mensaje;
-                            this.lblMensaje.Visible = true;
-                            return;
-                        }
+                            //usuario.strUsername = this.txtUsername.Text.Trim();
+                            txtNewPassOne.Text = Seguridad.Encriptar(txtNewPassOne.Text);
+                            usuario.strPassword = this.txtNewPassOne.Text.Trim();
 
-                        //dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().InsertOnSubmit(usuario);
-                        dcGuardar.SubmitChanges();
-                        this.showMessage("El registro se corrigió correctamente.");
-                        this.Response.Redirect("~/Login.aspx", false);
+                            String mensaje = String.Empty;
+                            //Validacion de datos correctos desde código
+                            if (!this.Validacion(usuario, ref mensaje))
+                            {
+                                this.lblMensaje.Text = mensaje;
+                                this.lblMensaje.Visible = true;
+                                return;
+                            }
+
+                            //dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().InsertOnSubmit(usuario);
+                            dcGuardar.SubmitChanges();
+                            this.showMessage("La contraseña se corrigió correctamente.");
+                            this.Response.Redirect("~/Login.aspx", false);
+                        }
+                        else
+                        {
+                            this.showMessage("Error, el usuario no existe");
+                        }
 
                     }
                     if (this.idPersona > 0)
@@ -183,34 +192,6 @@ namespace UTTT.Ejemplo.Persona
         #endregion
 
         #region Metodos
-
-        //public void setItem(ref DropDownList _control, String _value)
-        //{
-        //    foreach (ListItem item in _control.Items)
-        //    {
-        //        if (item.Value == _value)
-        //        {
-        //            item.Selected = true;
-        //            break;
-        //        }
-        //    }
-        //    _control.Items.FindByText(_value).Selected = true;
-        //}
-
-        #region Cifrado
-
-        private string GetSha256(string str)
-        {
-            SHA256 sha256 = SHA256Managed.Create();
-            ASCIIEncoding enconding = new ASCIIEncoding();
-            byte[] stream = null;
-            StringBuilder sb = new StringBuilder();
-            stream = sha256.ComputeHash(enconding.GetBytes(str));
-            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
-            return sb.ToString();
-        }
-
-        #endregion
 
         #region Validacion codigo
 
