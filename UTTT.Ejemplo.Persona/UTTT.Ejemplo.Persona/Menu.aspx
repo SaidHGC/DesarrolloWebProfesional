@@ -28,19 +28,24 @@
                 </div>
             </div>
             <div class="row">
-                <div id="col1" class="col-md-4 col-sm-12">
+                <div id="col1" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnEmpleados" runat="server" Text="Empleados" 
                         onclick="btnEmpleados_Click" ViewStateMode="Disabled"
                         Enabled="false"/>
                 </div>
-                <div id="col2" class="col-md-4 col-sm-12">
+                <div id="col2" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnCedes" runat="server" Text="Catalogo Cedes" 
                         onclick="btnCedes_Click" ViewStateMode="Disabled"
                         Enabled="false"/>
                 </div>
-                <div id="col3" class="col-md-4 col-sm-12">
+                <div id="col3" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnCorridas" runat="server" Text="Corridas" 
                         onclick="btnCorridas_Click" ViewStateMode="Disabled"
+                        Enabled="false"/>
+                </div>
+                <div id="col4" class="col-md-6 col-sm-12">
+                    <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" 
+                        onclick="btnCerrarSesion_Click" ViewStateMode="Disabled"
                         Enabled="false"/>
                 </div>
                 
@@ -76,14 +81,15 @@
         margin-bottom: 4%;
     }
 
-    #col1, #col2, #col3{
+    #col1, #col2, #col3, #col4{
         text-align: center;
         padding-top: 2%;
     }
 
     #btnEmpleados,
     #btnCorridas,
-    #btnCedes{
+    #btnCedes,
+    #btnCerrarSesion{
         height:50px;
         padding: 1%;
         font-size:20px;
@@ -96,7 +102,8 @@
 
     #btnEmpleados:hover,
     #btnCorridas:hover,
-    #btnCedes:hover{
+    #btnCedes:hover,
+    #btnCerrarSesion:hover{
         background-color: #00724e;
         font-weight:600;
     }

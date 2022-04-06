@@ -12,7 +12,7 @@
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
     <div class="d-none d-md-block d-lg-block d-xl-block">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="Menu.aspx">
         <img src="Images/Mano_Amiga_logo.png" alt="Logo" class="logoEmpresa" />
       </a>
     </div>
@@ -32,6 +32,9 @@
         </li>
         <li class="nav-item" id="navegacionCorridas">
           <a class="nav-link" href="CorridasPrincipal.aspx">Corridas</a>
+        </li>
+        <li class="nav-item" id="navegacionLogOut">
+          <a class="nav-link" href="Login.aspx">Cerrar Sesión</a>
         </li>
       </ul>
     </div>
@@ -199,7 +202,8 @@
 
     #navegacionCedes:hover,
     #navegacionEmpleados:hover,
-    #navegacionCorridas:hover{
+    #navegacionCorridas:hover,
+    #navegacionLogOut:hover{
         background-color: rgb(108, 113, 117);
     }
 

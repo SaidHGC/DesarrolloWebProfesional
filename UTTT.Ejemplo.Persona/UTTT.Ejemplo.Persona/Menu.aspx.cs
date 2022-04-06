@@ -26,6 +26,9 @@ namespace UTTT.Ejemplo.Persona
             try
             {
                 this.btnEmpleados.Enabled = true;
+                this.btnCedes.Enabled = true;
+                this.btnCorridas.Enabled = true;
+                this.btnCerrarSesion.Enabled = true;
             }
             catch (Exception _e)
             {
@@ -63,6 +66,18 @@ namespace UTTT.Ejemplo.Persona
             try
             {
                 this.Response.Redirect("~/CorridasPrincipal.aspx", false);
+            }
+            catch (Exception _e)
+            {
+                this.showMessage("Ha ocurrido un error inesperado");
+            }
+        }
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Response.Redirect("~/Login.aspx", false);
             }
             catch (Exception _e)
             {
