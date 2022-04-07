@@ -18,12 +18,39 @@ namespace UTTT.Ejemplo.Persona
         private SessionManager session = new SessionManager();
         public static String ultimaExcepcion;
 
+        private int perfil = 2;
+
         #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                //perfil = int.Parse(Session["idPerfil"].ToString());
+                //switch (perfil)
+                //{
+                //    case 1:
+                //        this.navegacionCedes.Visible = true;
+                //        this.navegacionCorridas.Visible = true;
+                //        this.navegacionEmpleados.Visible = true;
+                //        this.navegacionLogOut.Visible = true;
+                //        break;
+
+                //    case 2:
+                //        this.navegacionCedes.Visible = true;
+                //        this.navegacionCorridas.Visible = true;
+                //        this.navegacionEmpleados.Visible = true;
+                //        this.navegacionLogOut.Visible = true;
+                //        break;
+
+                //    case 3:
+                //        this.navegacionCedes.Visible = true;
+                //        this.navegacionCorridas.Visible = true;
+                //        this.navegacionEmpleados.Visible = false;
+                //        this.navegacionLogOut.Visible = true;
+                //        break;
+                //}
+
                 Response.Buffer = true;
                 DataContext dcTemp = new ManoAmigaSysDataContext();
 

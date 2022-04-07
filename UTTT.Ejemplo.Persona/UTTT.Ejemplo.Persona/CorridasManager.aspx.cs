@@ -116,49 +116,69 @@ namespace UTTT.Ejemplo.Persona
 
                 DataContext dcGuardar = new ManoAmigaSysDataContext();
                 UTTT.Ejemplo.Linq.Data.Entity.Corridas corrida = new Linq.Data.Entity.Corridas();
-                if (this.idPersona == 0)
+
+                string pInicialTemp = this.txtPuntoInicio.Text;
+                string pFinalTemp = this.txtPuntoFinal.Text;
+
+                using (dcGlobal = new ManoAmigaSysDataContext())
                 {
-                    corrida.strPuntoInicio = this.txtPuntoInicio.Text.Trim();
-                    corrida.strPuntoFinal = this.txtPuntoFinal.Text.Trim();
-                    corrida.idCede = int.Parse(this.ddlCede.Text);
-                    corrida.strTipoCorrida = this.txtTipoCorrida.Text.Trim();
+                    List<Corridas> listaCorridasInicial =
+                        dcGlobal.GetTable<Corridas>().Where(c => (c.strPuntoInicio.Equals(pInicialTemp))).ToList();
 
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(corrida, ref mensaje))
+                    List<Corridas> listaCorridasFinal =
+                        dcGlobal.GetTable<Corridas>().Where(c => (c.strPuntoFinal.Equals(pFinalTemp))).ToList();
+
+                    if (listaCorridasInicial.Count > 0 && listaCorridasFinal.Count > 0)
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
+                        this.showMessage("La corrida ya existe, favor de ingresar otro que sea valida");
                     }
-
-                    dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().InsertOnSubmit(corrida);
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se agrego correctamente.");
-                    this.Response.Redirect("~/CorridasPrincipal.aspx", false);
-
-                }
-                if (this.idPersona > 0)
-                {
-                    corrida = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().First
-                                                                        (c => c.idCorrida == idPersona);
-                    corrida.strPuntoInicio = this.txtPuntoInicio.Text.Trim();
-                    corrida.strPuntoFinal = this.txtPuntoFinal.Text.Trim();
-                    corrida.idCede = int.Parse(this.ddlCede.Text);
-                    corrida.strTipoCorrida = this.txtTipoCorrida.Text.Trim();
-
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(corrida, ref mensaje))
+                    else
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
-                    }
+                        if (this.idPersona == 0)
+                        {
+                            corrida.strPuntoInicio = this.txtPuntoInicio.Text.Trim();
+                            corrida.strPuntoFinal = this.txtPuntoFinal.Text.Trim();
+                            corrida.idCede = int.Parse(this.ddlCede.Text);
+                            corrida.strTipoCorrida = this.txtTipoCorrida.Text.Trim();
 
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se edito correctamente.");
-                    this.Response.Redirect("~/CorridasPrincipal.aspx", false);
+                            String mensaje = String.Empty;
+                            //Validacion de datos correctos desde código
+                            if (!this.Validacion(corrida, ref mensaje))
+                            {
+                                this.lblMensaje.Text = mensaje;
+                                this.lblMensaje.Visible = true;
+                                return;
+                            }
+
+                            dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().InsertOnSubmit(corrida);
+                            dcGuardar.SubmitChanges();
+                            this.showMessage("El registro se agrego correctamente.");
+                            this.Response.Redirect("~/CorridasPrincipal.aspx", false);
+
+                        }
+                        if (this.idPersona > 0)
+                        {
+                            corrida = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Corridas>().First
+                                                                                (c => c.idCorrida == idPersona);
+                            corrida.strPuntoInicio = this.txtPuntoInicio.Text.Trim();
+                            corrida.strPuntoFinal = this.txtPuntoFinal.Text.Trim();
+                            corrida.idCede = int.Parse(this.ddlCede.Text);
+                            corrida.strTipoCorrida = this.txtTipoCorrida.Text.Trim();
+
+                            String mensaje = String.Empty;
+                            //Validacion de datos correctos desde código
+                            if (!this.Validacion(corrida, ref mensaje))
+                            {
+                                this.lblMensaje.Text = mensaje;
+                                this.lblMensaje.Visible = true;
+                                return;
+                            }
+
+                            dcGuardar.SubmitChanges();
+                            this.showMessage("El registro se edito correctamente.");
+                            this.Response.Redirect("~/CorridasPrincipal.aspx", false);
+                        }
+                    }
                 }
             }
             catch (Exception _e)

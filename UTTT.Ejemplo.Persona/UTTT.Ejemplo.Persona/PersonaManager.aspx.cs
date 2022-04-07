@@ -28,6 +28,9 @@ namespace UTTT.Ejemplo.Persona
         //private DataContext dcGlobal = new DcGeneralDataContext();
         private int tipoAccion = 0;
 
+        String mensajeValidacion = String.Empty;
+        DateTime fechaIngreso = new DateTime(DateTime.MaxValue.Ticks);
+
         #endregion
 
         #region Eventos
@@ -80,7 +83,7 @@ namespace UTTT.Ejemplo.Persona
                     {
                         this.lblAccion.Text = "Agregar";
 
-                        CalendarExtender1.SelectedDate = DateTime.MinValue;
+                        CalendarExtender1.SelectedDate = DateTime.Now;
 
                         EmpCede catTempCede = new EmpCede();
                         catTempCede.IdCede = -1;
@@ -171,8 +174,6 @@ namespace UTTT.Ejemplo.Persona
                 this.txtAMaterno.Text.Trim().Equals("") && 
                 int.Parse(this.ddlCede.Text).Equals(-1) && 
                 int.Parse(this.ddlSexo.Text).Equals(-1) &&
-                //int.Parse(this.ddlStatus.Text).Equals(-1) &&
-                //int.Parse(this.ddlPuesto.Text).Equals(-1) &&
                 //Comento la fecha porque no me deja comparar que sea la fecha minima
                 //this.txtFechaIngreso.Text.Trim().Equals("") &&
                 this.txtEmail.Text.Trim().Equals(""))
@@ -190,86 +191,97 @@ namespace UTTT.Ejemplo.Persona
                 {
                     return;
                 }
-
-                //SE OBTINE LA FECHA DE INGRESO
-                string date = Request.Form[this.txtFechaIngreso.UniqueID];
-                DateTime fechaIngreso = DateTime.Parse(date, CultureInfo.CreateSpecificCulture("es-MX"));
-                //DateTime fechaNacimiento = DateTime.Parse(date, CultureInfo.CreateSpecificCulture("es-MX"));
-
+                
                 DataContext dcGuardar = new ManoAmigaSysDataContext();
                 UTTT.Ejemplo.Linq.Data.Entity.Empleados empleado = new Linq.Data.Entity.Empleados();
-                //UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
-                if (this.idPersona == 0)
+
+                string empleadoTemp = this.txtNombre.Text;
+                string empleadoAPTemp = this.txtAPaterno.Text;
+                string empleadoAMTemp = this.txtAMaterno.Text;
+
+                using (dcGlobal = new ManoAmigaSysDataContext())
                 {
-                    empleado.strNombre = this.txtNombre.Text.Trim();
-                    empleado.strApPaterno = this.txtAPaterno.Text.Trim();
-                    empleado.strApMaterno = this.txtAMaterno.Text.Trim();
-                    empleado.strEmail = this.txtEmail.Text.Trim();
-                    empleado.idCede = int.Parse(this.ddlCede.Text);
-                    empleado.idSexo = int.Parse(this.ddlSexo.Text);
-                    //empleado.idStatus = int.Parse(this.ddlStatus.Text);
-                    //empleado.idPuesto = int.Parse(this.ddlPuesto.Text);
-                    
-                    //persona.strClaveUnica = this.txtClaveUnica.Text.Trim();
-                    //persona.strNombre = this.txtNombre.Text.Trim();
-                    //persona.strAMaterno = this.txtAMaterno.Text.Trim();
-                    //persona.strAPaterno = this.txtAPaterno.Text.Trim();
-                    //persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-                    //persona.strCURP = this.txtCurp.Text.Trim();
+                    List<Empleados> listaEmpleadosNombre =
+                        dcGlobal.GetTable<Empleados>().Where(c => (c.strNombre.Equals(empleadoTemp))).ToList();
 
-                    //ASIGNA LA FECHA DE NACIMIENTO
-                    empleado.dteFechaIngreso = fechaIngreso;
-                    //persona.dteFechaNacimiento = fechaNacimiento;
+                    List<Empleados> listaEmpleadosAP =
+                        dcGlobal.GetTable<Empleados>().Where(c => (c.strApPaterno.Equals(empleadoAPTemp))).ToList();
 
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(empleado, ref mensaje))
+                    List<Empleados> listaEmpleadosAM =
+                        dcGlobal.GetTable<Empleados>().Where(c => (c.strApMaterno.Equals(empleadoAMTemp))).ToList();
+
+                    if (listaEmpleadosNombre.Count > 0 && listaEmpleadosAP.Count > 0 && listaEmpleadosAM.Count > 0)
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
+                        this.showMessage("El empleado ya existe, ingrese uno nuevo");
                     }
-
-                    dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().InsertOnSubmit(empleado);
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se agrego correctamente.");
-                    this.Response.Redirect("~/PersonaPrincipal.aspx", false);
-                    
-                }
-                if (this.idPersona > 0)
-                {
-                    empleado = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First
-                                                                        (c => c.idEmpleado == idPersona);
-                    empleado.strNombre = this.txtNombre.Text.Trim();
-                    empleado.strApPaterno = this.txtAPaterno.Text.Trim();
-                    empleado.strApMaterno = this.txtAMaterno.Text.Trim();
-                    empleado.idCede = int.Parse(this.ddlCede.Text);
-                    empleado.idSexo = int.Parse(this.ddlSexo.Text);
-                    //empleado.idStatus = int.Parse(this.ddlStatus.Text);
-                    //empleado.idPuesto = int.Parse(this.ddlPuesto.Text);
-                    empleado.strEmail = this.txtEmail.Text.Trim();
-                    //persona.strNombre = this.txtNombre.Text.Trim();
-                    //persona.strAMaterno = this.txtAMaterno.Text.Trim();
-                    //persona.strAPaterno = this.txtAPaterno.Text.Trim();
-                    //persona.idCatSexo = int.Parse(this.ddlSexo.Text);
-                    //persona.strCURP = this.txtCurp.Text.Trim();
-
-                    //ASIGNA FECHA DE INGRESO
-                    empleado.dteFechaIngreso = fechaIngreso;
-                    //persona.dteFechaNacimiento = fechaNacimiento;
-
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(empleado, ref mensaje))
+                    else
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
-                    }
+                        if (Validacion(ref mensajeValidacion))
+                        {
+                            //SE OBTINE LA FECHA DE INGRESO
+                            string date = Request.Form[this.txtFechaIngreso.UniqueID];
 
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se edito correctamente.");
-                    this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+                            if (!DateTime.TryParse(date, CultureInfo.CreateSpecificCulture("es-MX"), DateTimeStyles.None, out fechaIngreso))
+                            {
+                                this.lblMensaje.Text = "La fecha no es valida";
+                                this.lblMensaje.Visible = true;
+                            }
+                            else
+                            {
+
+                                if (this.idPersona == 0)
+                                {
+                                    empleado.strNombre = this.txtNombre.Text.Trim();
+                                    empleado.strApPaterno = this.txtAPaterno.Text.Trim();
+                                    empleado.strApMaterno = this.txtAMaterno.Text.Trim();
+                                    empleado.strEmail = this.txtEmail.Text.Trim();
+                                    empleado.idCede = int.Parse(this.ddlCede.Text);
+                                    empleado.idSexo = int.Parse(this.ddlSexo.Text);
+
+                                    //ASIGNA LA FECHA DE NACIMIENTO
+                                    empleado.dteFechaIngreso = fechaIngreso;
+
+                                    dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().InsertOnSubmit(empleado);
+                                    dcGuardar.SubmitChanges();
+                                    this.showMessage("El registro se agrego correctamente.");
+                                    this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+                                }
+
+                                if (this.idPersona > 0)
+                                {
+                                    empleado = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Empleados>().First
+                                                                                        (c => c.idEmpleado == idPersona);
+                                    empleado.strNombre = this.txtNombre.Text.Trim();
+                                    empleado.strApPaterno = this.txtAPaterno.Text.Trim();
+                                    empleado.strApMaterno = this.txtAMaterno.Text.Trim();
+                                    empleado.idCede = int.Parse(this.ddlCede.Text);
+                                    empleado.idSexo = int.Parse(this.ddlSexo.Text);
+                                    empleado.strEmail = this.txtEmail.Text.Trim();
+
+                                    empleado.dteFechaIngreso = fechaIngreso;
+
+                                    //String mensaje = String.Empty;
+                                    //Validacion de datos correctos desde código
+                                    //if (!this.Validacion(ref mensaje))
+                                    //{
+                                    //    this.lblMensaje.Text = mensaje;
+                                    //    this.lblMensaje.Visible = true;
+                                    //    return;
+                                    //}
+
+                                    dcGuardar.SubmitChanges();
+                                    this.showMessage("El registro se edito correctamente.");
+                                    this.Response.Redirect("~/PersonaPrincipal.aspx", false);
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            this.lblMensaje.Text = mensajeValidacion;
+                            this.lblMensaje.Visible = true;
+                        }
+                    }
                 }
             }
             catch (Exception _e)
@@ -391,32 +403,51 @@ namespace UTTT.Ejemplo.Persona
 
         #region Validacion codigo
 
+        //public bool ValidacionFecha(DateTime fechaEvaluar, ref String _mensaje)
+        //{
+        //    //Validar fecha
+        //    //Regex re = new Regex("^(0?[1-9]|1[0-9]|2|2[0-9]|3[0-1])/(0?[1-9]|1[0-2])/(d{2}|d{4})$");
+        //    //if (!re.IsMatch(_empleado.dteFechaIngreso.ToString()))
+        //    //{
+        //    //    _mensaje = "La fecha no es valida";
+        //    //    return false;
+        //    //}
+        //    //Valida que el año no sea 0 en la fecha
+        //    if (fechaEvaluar.Year == 0000)
+        //    {
+        //        _mensaje = "El año no es valido";
+        //        return false;
+        //    }
+
+        //    return true;
+        //}
+
         //Validación de datos básicos
 
-        public bool Validacion(UTTT.Ejemplo.Linq.Data.Entity.Empleados _empleado, ref String _mensaje)
+        public bool Validacion(ref String _mensaje)
         {
-            if (_empleado.idSexo == -1)
+            if (ddlSexo.SelectedValue.Equals(-1))
             {
                 _mensaje = "Seleccionar un sexo, Femenino o Masculino";
                 return false;
             }
 
             //Valida si el nommbre esta vacio
-            if (_empleado.strNombre.Equals(String.Empty))
+            if (txtNombre.Text.Trim().Equals(String.Empty))
             {
                 _mensaje = "El campo nombre esta vacio";
                 return false;
             }
 
             //Valida solamente que se ingresen mas de 3 caracteres en el nombre
-            if (_empleado.strNombre.Length < 3)
+            if (txtNombre.Text.Trim().Length < 3)
             {
                 _mensaje = "El nombre necesita ser de al menos 3 caracteres, favor de ingresar un nombre valido";
                 return false;
             }
 
             //Valida solamente que se ingresen menos de 50 caracteres en el nombre
-            if (_empleado.strNombre.Length > 50)
+            if (txtNombre.Text.Trim().Length > 50)
             {
                 _mensaje = "El nombre excede los 50 caracteres, favor de ingresar un nombre valido";
                 return false;
@@ -427,28 +458,28 @@ namespace UTTT.Ejemplo.Persona
              * RESCATADO DE
              * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
              */
-            if (!Regex.IsMatch(_empleado.strNombre, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
+            if (!Regex.IsMatch(txtNombre.Text.Trim(), @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
             {
                 _mensaje = "El campo Nombre solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
             //Valida si el APaterno esta vacio
-            if (_empleado.strApPaterno.Equals(String.Empty))
+            if (txtAPaterno.Text.Trim().Equals(String.Empty))
             {
                 _mensaje = "El campo APaterno esta vacio";
                 return false;
             }
 
             //Valida solamente que se ingresen mas de 3 caracteres en el APaterno
-            if (_empleado.strApPaterno.Length < 3)
+            if (txtAPaterno.Text.Trim().Length < 3)
             {
                 _mensaje = "El apellido paterno necesita ser de al menos 3 caracteres, favor de ingresar un apellido valido";
                 return false;
             }
 
             //Valida solamente que se ingresen menos de 50 caracteres en el APaterno
-            if (_empleado.strApPaterno.Length > 50)
+            if (txtAPaterno.Text.Trim().Length > 50)
             {
                 _mensaje = "El apellido paterno excede los 50 caracteres, favor de ingresar un apellido valido";
                 return false;
@@ -459,28 +490,28 @@ namespace UTTT.Ejemplo.Persona
              * RESCATADO DE
              * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
              */
-            if (!Regex.IsMatch(_empleado.strApPaterno, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
+            if (!Regex.IsMatch(txtAPaterno.Text.Trim(), @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙüïÜÏ ]+$"))
             {
                 _mensaje = "El campo de APaterno solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
             //Valida si el AMaterno esta vacio
-            if (_empleado.strApMaterno.Equals(String.Empty))
+            if (txtAMaterno.Text.Trim().Equals(String.Empty))
             {
                 _mensaje = "El campo AMaterno esta vacio";
                 return false;
             }
 
             //Valida solamente que se ingresen mas de 3 caracteres en el AMaterno
-            if (_empleado.strApMaterno.Length < 3)
+            if (txtAMaterno.Text.Trim().Length < 3)
             {
                 _mensaje = "El apellido Materno debe ser de al menos 3 caracteres, favor de ingresar un apellido valido";
                 return false;
             }
 
             //Valida solamente que se ingresen menos de 50 caracteres en el AMaterno
-            if (_empleado.strApMaterno.Length > 50)
+            if (txtAMaterno.Text.Trim().Length > 50)
             {
                 _mensaje = "El apellido Materno excede los 50 caracteres, favor de ingresar un apellido valido";
                 return false;
@@ -491,16 +522,23 @@ namespace UTTT.Ejemplo.Persona
              * RESCATADO DE
              * https://qastack.mx/programming/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp
              */
-            if (!Regex.IsMatch(_empleado.strApMaterno, @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙv ]+$"))
+            if (!Regex.IsMatch(txtAMaterno.Text.Trim(), @"^[a-zA-ZñÑáéíóúÁÉÍÓÚàèìòùÀÈÌÒÙv ]+$"))
             {
                 _mensaje = "El campo AMaterno solo acepta letras, favor de insertar caracteres validos";
                 return false;
             }
 
             //Valida que sea tipo email el email
-            if(!Regex.IsMatch(_empleado.strEmail, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+            if(!Regex.IsMatch(txtEmail.Text.Trim(), @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
             {
                 _mensaje = "El campo email no es del tipo indicado, favor de insertar caracteres validos";
+                return false;
+            }
+
+            //Validar la fecha
+            if (!Regex.IsMatch(txtFechaIngreso.Text, @"^([0-2][0-9]|3[0-1])(\/|-)(0[1-9]|1[0-2])\2(\d{4})$"))
+            {
+                _mensaje = "La fecha de ingreso no corresponde con el formato solicitado";
                 return false;
             }
 

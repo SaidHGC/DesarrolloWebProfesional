@@ -238,7 +238,7 @@
         font-weight: bold;
     }
 
-    #ddlStatus
+    #ddlStatus,
     #ddlPerfil,
     #txtUsername,
     #txtPassOne,

@@ -24,16 +24,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item" id="navegacionCedes">
+        <li class="nav-item" ID="navegacionCedes" runat="server" visible="true">
           <a class="nav-link" href="CedesPrincipal.aspx">Cedes</a>
         </li>
-        <li class="nav-item" id="navegacionEmpleados">
+        <li class="nav-item" ID="navegacionEmpleados" runat="server" visible="true">
           <a class="nav-link" href="PersonaPrincipal.aspx">Empleados</a>
         </li>
-        <li class="nav-item" id="navegacionCorridas">
+        <li class="nav-item" ID="navegacionCorridas" runat="server" visible="true">
           <a class="nav-link" href="CorridasPrincipal.aspx">Corridas</a>
         </li>
-          <li class="nav-item" id="navegacionLogOut">
+          <li class="nav-item" ID="navegacionLogOut" runat="server" visible="true">
           <a class="nav-link" href="Login.aspx">Cerrar Sesión</a>
         </li>
       </ul>
@@ -96,7 +96,11 @@
                         SortExpression="strDescripcion" />
                     <asp:TemplateField HeaderText="Editar">
                         <ItemTemplate>
-                                    <asp:ImageButton runat="server" ID="imgEditar" CommandName="Editar" CommandArgument='<%#Bind("idCede") %>' ImageUrl="~/Images/editrecord_16x16.png" />
+                                    <asp:ImageButton runat="server" ID="imgEditar" 
+                                        CommandName="Editar" 
+                                        CommandArgument='<%#Bind("idCede") %>' 
+                                        ImageUrl="~/Images/editrecord_16x16.png" 
+                                        Visible="true"/>
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />
@@ -104,7 +108,12 @@
                     </asp:TemplateField>
                      <asp:TemplateField HeaderText="Eliminar" Visible="True">
                             <ItemTemplate>
-                                <asp:ImageButton runat="server" ID="imgEliminar" CommandName="Eliminar" CommandArgument='<%#Bind("idCede") %>' ImageUrl="~/Images/delrecord_16x16.png" OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')"/>
+                                <asp:ImageButton runat="server" ID="imgEliminar" 
+                                    CommandName="Eliminar" 
+                                    CommandArgument='<%#Bind("idCede") %>' 
+                                    ImageUrl="~/Images/delrecord_16x16.png" 
+                                    OnClientClick="javascript:return confirm('¿Está seguro de querer eliminar el registro seleccionado?', 'Mensaje de sistema')" 
+                                    Visible="true"/>
                             </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Center" />
                                 <ItemStyle HorizontalAlign="Center" Width="50px" />

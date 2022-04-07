@@ -19,16 +19,35 @@ namespace UTTT.Ejemplo.Persona
         //private DataContext dcGlobal = new DcGeneralDataContext();
         private int tipoAccion = 0;
 
+        private int perfil = 2;
+
         #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                this.btnEmpleados.Enabled = true;
-                this.btnCedes.Enabled = true;
-                this.btnCorridas.Enabled = true;
-                this.btnCerrarSesion.Enabled = true;
+                //perfil = int.Parse(Session["idPerfil"].ToString());
+                //switch (perfil)
+                //{
+                //    case 1:
+                //        this.btnEmpleados.Visible = true;
+                //        this.btnCedes.Visible = true;
+                //        this.btnCorridas.Visible = true;
+                //        break;
+
+                //    case 2:
+                //        this.btnEmpleados.Visible = false;
+                //        this.btnCedes.Visible = false;
+                //        this.btnCorridas.Visible = false;
+                //        break;
+
+                //    case 3:
+                //        this.btnEmpleados.Visible = false;
+                //        this.btnCedes.Visible = true;
+                //        this.btnCorridas.Visible = true;
+                //        break;
+                //}
             }
             catch (Exception _e)
             {

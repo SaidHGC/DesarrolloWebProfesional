@@ -57,16 +57,16 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <li class="nav-item" id="navegacionCedes">
+        <li class="nav-item" ID="navegacionCedes" runat="server" visible="true">
           <a class="nav-link" href="CedesPrincipal.aspx">Cedes</a>
         </li>
-        <li class="nav-item" id="navegacionEmpleados">
+        <li class="nav-item" ID="navegacionEmpleados" runat="server" visible="true">
           <a class="nav-link" href="PersonaPrincipal.aspx">Empleados</a>
         </li>
-        <li class="nav-item" id="navegacionCorridas">
+        <li class="nav-item" ID="navegacionCorridas" runat="server" visible="true">
           <a class="nav-link" href="CorridasPrincipal.aspx">Corridas</a>
         </li>
-          <li class="nav-item" id="navegacionLogOut">
+          <li class="nav-item" ID="navegacionLogOut" runat="server" visible="true">
           <a class="nav-link" href="Login.aspx">Cerrar Sesión</a>
         </li>
       </ul>

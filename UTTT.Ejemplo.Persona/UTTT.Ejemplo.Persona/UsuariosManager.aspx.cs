@@ -138,52 +138,70 @@ namespace UTTT.Ejemplo.Persona
 
                     DataContext dcGuardar = new ManoAmigaSysDataContext();
                     UTTT.Ejemplo.Linq.Data.Entity.Usuarios usuario = new Linq.Data.Entity.Usuarios();
-                    if (this.idPersona == 0)
+
+                    string usuarioTemp = this.txtUsername.Text;
+
+                    using (dcGlobal = new ManoAmigaSysDataContext())
                     {
-                        usuario.strUsername = this.txtUsername.Text.Trim();
-                        //encriptamos la cadena inicial       
-                        txtPassOne.Text = Seguridad.Encriptar(txtPassOne.Text);
-                        usuario.strPassword = this.txtPassOne.Text.Trim();
-                        usuario.idStatus = int.Parse(this.ddlStatus.Text);
-                        usuario.idPerfil = int.Parse(this.ddlPerfil.Text);
+                        List<Usuarios> listaUsuariosUsername =
+                            dcGlobal.GetTable<Usuarios>().Where(c => (c.strUsername.Equals(usuarioTemp))).ToList();
 
-                        String mensaje = String.Empty;
-                        //Validacion de datos correctos desde código
-                        if (!this.Validacion(usuario, ref mensaje))
+                        if (listaUsuariosUsername.Count > 0)
                         {
-                            this.lblMensaje.Text = mensaje;
-                            this.lblMensaje.Visible = true;
-                            return;
+                            this.showMessage("El usuario ya existe, favor de ingresar otro que sea valido");
                         }
-
-                        dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().InsertOnSubmit(usuario);
-                        dcGuardar.SubmitChanges();
-                        this.showMessage("El registro se agrego correctamente.");
-                        this.Response.Redirect("~/Login.aspx", false);
-
-                    }
-                    if (this.idPersona > 0)
-                    {
-                        usuario = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().First
-                                                                            (c => c.idUsuario == idPersona);
-                        usuario.strUsername = this.txtUsername.Text.Trim();
-                        usuario.strPassword = this.txtPassOne.Text.Trim();
-                        usuario.idStatus = int.Parse(this.ddlStatus.Text);
-                        usuario.idPerfil = int.Parse(this.ddlPerfil.Text);
-
-
-                        String mensaje = String.Empty;
-                        //Validacion de datos correctos desde código
-                        if (!this.Validacion(usuario, ref mensaje))
+                        else
                         {
-                            this.lblMensaje.Text = mensaje;
-                            this.lblMensaje.Visible = true;
-                            return;
-                        }
+                            //DataContext dcGuardar = new ManoAmigaSysDataContext();
+                            //UTTT.Ejemplo.Linq.Data.Entity.Usuarios usuario = new Linq.Data.Entity.Usuarios();
+                            if (this.idPersona == 0)
+                            {
+                                usuario.strUsername = this.txtUsername.Text.Trim();
+                                //encriptamos la cadena inicial       
+                                txtPassOne.Text = Seguridad.Encriptar(txtPassOne.Text);
+                                usuario.strPassword = this.txtPassOne.Text.Trim();
+                                usuario.idStatus = int.Parse(this.ddlStatus.Text);
+                                usuario.idPerfil = int.Parse(this.ddlPerfil.Text);
 
-                        dcGuardar.SubmitChanges();
-                        this.showMessage("El registro se edito correctamente.");
-                        this.Response.Redirect("~/Login.aspx", false);
+                                String mensaje = String.Empty;
+                                //Validacion de datos correctos desde código
+                                if (!this.Validacion(usuario, ref mensaje))
+                                {
+                                    this.lblMensaje.Text = mensaje;
+                                    this.lblMensaje.Visible = true;
+                                    return;
+                                }
+
+                                dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().InsertOnSubmit(usuario);
+                                dcGuardar.SubmitChanges();
+                                this.showMessage("El registro se agrego correctamente.");
+                                this.Response.Redirect("~/Login.aspx", false);
+
+                            }
+                            if (this.idPersona > 0)
+                            {
+                                usuario = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.Usuarios>().First
+                                                                                    (c => c.idUsuario == idPersona);
+                                usuario.strUsername = this.txtUsername.Text.Trim();
+                                usuario.strPassword = this.txtPassOne.Text.Trim();
+                                usuario.idStatus = int.Parse(this.ddlStatus.Text);
+                                usuario.idPerfil = int.Parse(this.ddlPerfil.Text);
+
+
+                                String mensaje = String.Empty;
+                                //Validacion de datos correctos desde código
+                                if (!this.Validacion(usuario, ref mensaje))
+                                {
+                                    this.lblMensaje.Text = mensaje;
+                                    this.lblMensaje.Visible = true;
+                                    return;
+                                }
+
+                                dcGuardar.SubmitChanges();
+                                this.showMessage("El registro se edito correctamente.");
+                                this.Response.Redirect("~/Login.aspx", false);
+                            }
+                        }
                     }
                 }
                 else

@@ -31,22 +31,22 @@
                 <div id="col1" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnEmpleados" runat="server" Text="Empleados" 
                         onclick="btnEmpleados_Click" ViewStateMode="Disabled"
-                        Enabled="false"/>
+                        Visible="true"/>
                 </div>
                 <div id="col2" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnCedes" runat="server" Text="Catalogo Cedes" 
                         onclick="btnCedes_Click" ViewStateMode="Disabled"
-                        Enabled="false"/>
+                        Visible="true"/>
                 </div>
                 <div id="col3" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnCorridas" runat="server" Text="Corridas" 
                         onclick="btnCorridas_Click" ViewStateMode="Disabled"
-                        Enabled="false"/>
+                        Visible="true"/>
                 </div>
                 <div id="col4" class="col-md-6 col-sm-12">
                     <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar Sesión" 
                         onclick="btnCerrarSesion_Click" ViewStateMode="Disabled"
-                        Enabled="false"/>
+                        Visible="true"/>
                 </div>
                 
             </div>

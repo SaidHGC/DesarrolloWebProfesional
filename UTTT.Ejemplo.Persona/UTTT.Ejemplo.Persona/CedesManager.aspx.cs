@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,6 +22,8 @@ namespace UTTT.Ejemplo.Persona
         //private DataContext dcGlobal = new DcGeneralDataContext();
         private int tipoAccion = 0;
 
+        private int perfil = 2;
+
         #endregion
 
         #region Eventos
@@ -29,6 +32,35 @@ namespace UTTT.Ejemplo.Persona
         {
             try
             {
+                //perfil = int.Parse(Session["idPerfil"].ToString());
+                //switch (perfil)
+                //{
+                //    case 1:
+                //        this.navegacionCedes.Visible = true;
+                //        this.navegacionCorridas.Visible = true;
+                //        this.navegacionEmpleados.Visible = true;
+                //        this.navegacionLogOut.Visible = true;
+                //        break;
+
+                //    case 2:
+                //        this.navegacionCedes.Visible = false;
+                //        this.navegacionCorridas.Visible = false;
+                //        this.navegacionEmpleados.Visible = false;
+                //        this.navegacionLogOut.Visible = false;
+                //        this.Response.Redirect("~/Menu.aspx", false);
+                //        break;
+
+                //    case 3:
+                //        this.navegacionCedes.Visible = true;
+                //        this.navegacionCorridas.Visible = true;
+                //        this.navegacionEmpleados.Visible = false;
+                //        this.navegacionLogOut.Visible = true;
+                //        //EN CASO DE QUE NO DEBA ESTAR AHI EL DE ABAJO REDIRECIONA Y PUES LOS BOTONES TAMPOCO DEBEN
+                //        //SALIR, ESTO REPETIRLO EN TODOS LADOS :P
+                //        this.Response.Redirect("~/CedesPrincipal.aspx", false);
+                //        break;
+                //}
+
                 this.Response.Buffer = true;
                 this.session = (SessionManager)this.Session["SessionManager"];
                 this.idPersona = this.session.Parametros["IdCede"] != null ?
@@ -93,46 +125,62 @@ namespace UTTT.Ejemplo.Persona
 
                 DataContext dcGuardar = new ManoAmigaSysDataContext();
                 UTTT.Ejemplo.Linq.Data.Entity.EmpCede cede = new Linq.Data.Entity.EmpCede();
-                //UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
-                if (this.idPersona == 0)
+
+                string cedeTemp = this.txtCede.Text;
+
+                using (dcGlobal = new ManoAmigaSysDataContext())
                 {
-                    cede.strValor = this.txtCede.Text.Trim();
-                    cede.strDescripcion = this.txtDescripcion.Text.Trim();
+                    List<EmpCede> listaCedesUsername =
+                        dcGlobal.GetTable<EmpCede>().Where(c => (c.strValor.Equals(cedeTemp))).ToList();
 
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(cede, ref mensaje))
+                    if (listaCedesUsername.Count > 0)
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
+                        this.showMessage("La cede ya existe, favor de ingresar otra que sea valida");
                     }
-
-                    dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().InsertOnSubmit(cede);
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se agrego correctamente.");
-                    this.Response.Redirect("~/CedesPrincipal.aspx", false);
-
-                }
-                if (this.idPersona > 0)
-                {
-                    cede = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().First
-                                                                        (c => c.IdCede == idPersona);
-                    cede.strValor = this.txtCede.Text.Trim();
-                    cede.strDescripcion = this.txtDescripcion.Text.Trim();
-
-                    String mensaje = String.Empty;
-                    //Validacion de datos correctos desde código
-                    if (!this.Validacion(cede, ref mensaje))
+                    else
                     {
-                        this.lblMensaje.Text = mensaje;
-                        this.lblMensaje.Visible = true;
-                        return;
-                    }
+                        //UTTT.Ejemplo.Linq.Data.Entity.Persona persona = new Linq.Data.Entity.Persona();
+                        if (this.idPersona == 0)
+                        {
+                            cede.strValor = this.txtCede.Text.Trim();
+                            cede.strDescripcion = this.txtDescripcion.Text.Trim();
 
-                    dcGuardar.SubmitChanges();
-                    this.showMessage("El registro se editó correctamente.");
-                    this.Response.Redirect("~/CedesPrincipal.aspx", false);
+                            String mensaje = String.Empty;
+                            //Validacion de datos correctos desde código
+                            if (!this.Validacion(cede, ref mensaje))
+                            {
+                                this.lblMensaje.Text = mensaje;
+                                this.lblMensaje.Visible = true;
+                                return;
+                            }
+
+                            dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().InsertOnSubmit(cede);
+                            dcGuardar.SubmitChanges();
+                            this.showMessage("El registro se agrego correctamente.");
+                            this.Response.Redirect("~/CedesPrincipal.aspx", false);
+
+                        }
+                        if (this.idPersona > 0)
+                        {
+                            cede = dcGuardar.GetTable<UTTT.Ejemplo.Linq.Data.Entity.EmpCede>().First
+                                                                                (c => c.IdCede == idPersona);
+                            cede.strValor = this.txtCede.Text.Trim();
+                            cede.strDescripcion = this.txtDescripcion.Text.Trim();
+
+                            String mensaje = String.Empty;
+                            //Validacion de datos correctos desde código
+                            if (!this.Validacion(cede, ref mensaje))
+                            {
+                                this.lblMensaje.Text = mensaje;
+                                this.lblMensaje.Visible = true;
+                                return;
+                            }
+
+                            dcGuardar.SubmitChanges();
+                            this.showMessage("El registro se editó correctamente.");
+                            this.Response.Redirect("~/CedesPrincipal.aspx", false);
+                        }
+                    }
                 }
             }
             catch (Exception _e)
